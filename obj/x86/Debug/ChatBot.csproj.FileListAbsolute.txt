@@ -1,0 +1,13 @@
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\Interop.SKYPE4COMLib.dll
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ChatBot.csproj.ResolveComReference.cache
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ChatBot.Properties.Resources.resources
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\bin\Debug\ChatBot.exe
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\bin\Debug\ChatBot.pdb
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ChatBot.exe
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ChatBot.pdb
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\bin\Debug\Eka.Web.dll
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\bin\Debug\Eka.Web.pdb
+C:\Users\Sean\Documents\My Dropbox\Projects\ChatBot\obj\x86\Debug\ChatBot.Main.resources

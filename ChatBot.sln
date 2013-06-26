@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatBot", "ChatBot.csproj", "{61D57F9C-4790-4163-BD4E-3628D19EB8AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61D57F9C-4790-4163-BD4E-3628D19EB8AD}.Debug|x86.ActiveCfg = Debug|x86
+		{61D57F9C-4790-4163-BD4E-3628D19EB8AD}.Debug|x86.Build.0 = Debug|x86
+		{61D57F9C-4790-4163-BD4E-3628D19EB8AD}.Release|x86.ActiveCfg = Release|x86
+		{61D57F9C-4790-4163-BD4E-3628D19EB8AD}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
