@@ -1,0 +1,22 @@
+# Compiled stuff
+
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+bin
+obj
+
+# OS stuff
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
