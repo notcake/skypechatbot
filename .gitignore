@@ -10,6 +10,11 @@
 bin
 obj
 
+# VS stuff
+
+*.suo
+*.csproj
+
 # OS stuff
 
 .DS_Store
