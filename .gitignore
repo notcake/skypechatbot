@@ -26,3 +26,11 @@ obj
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# shit inb5 shit breaks
+
+.htaccess
+*.log
+*.bat
+*.txt
+*.php
