@@ -99,10 +99,6 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://pastebin.com/8jNskG2rasdsad");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://goo.gl/jmzTY");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://vimeo.com/61930364#");
-            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping asdasd");
-            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping 2");
-            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping");
-            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!pingas");
 
             this.ConnectToSkype();
         }

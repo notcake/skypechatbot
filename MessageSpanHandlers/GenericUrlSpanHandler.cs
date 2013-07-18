@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using Eka.Web.MusicBrainz;
+using Eka.Web.Pastebin;
+using Eka.Web.Twitter;
+using Eka.Web.Wikipedia;
+using Eka.Web.YouTube;
+
+namespace ChatBot.MessageSpanHandlers
+{
+    public class GenericUrlSpanHandler : IMessageSpanHandler
+    {
+        private string[] Urls = new string[]
+        {
+            "https?://(www\\.)?xkcd\\.com"
+        };
+
+        public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
+        {
+            foreach (string urlPattern in this.Urls)
+            {
+                foreach (Match match in new Regex(urlPattern, RegexOptions.IgnoreCase).Matches(message))
+                {
+                    actionSpanSink(match, match.ToString());
+                }
+            }
+        }
+
+        public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
+        {
+            string url = actionSpan.Data;
+            string html = new WebClient().DownloadString(url);
+            if (html == null) { return; }
+
+            Match match = new Regex("<title>([^<]+)</title>", RegexOptions.IgnoreCase).Match(html);
+            if (match == null) { return; }
+
+            messageSink(match.Groups[1].ToString());
+        }
+    }
+}
