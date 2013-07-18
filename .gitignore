@@ -2,12 +2,13 @@
 
 *.com
 *.class
-*.dll
+
 *.exe
 *.o
 *.so
+*.pdb
+*.manifest
 
-bin
 obj
 
 # VS stuff
