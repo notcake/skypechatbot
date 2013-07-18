@@ -8,7 +8,7 @@ using Eka.Web.Twitter;
 using Eka.Web.Wikipedia;
 using Eka.Web.YouTube;
 
-namespace ChatBot
+namespace ChatBot.MessageSpanHandlers
 {
     public class TwitterUrlSpanHandler : IMessageSpanHandler
     {

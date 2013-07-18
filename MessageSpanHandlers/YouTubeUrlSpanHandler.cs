@@ -7,7 +7,7 @@ using Eka.Web.MusicBrainz;
 using Eka.Web.Wikipedia;
 using Eka.Web.YouTube;
 
-namespace ChatBot
+namespace ChatBot.MessageSpanHandlers
 {
     public class YouTubeUrlSpanHandler : IMessageSpanHandler
     {

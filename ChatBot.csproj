@@ -49,10 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command.cs" />
+    <Compile Include="CommandDispatcher.cs" />
+    <Compile Include="CommandHandlers\PingCommandHandler.cs" />
+    <Compile Include="ICommandHandler.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="VimeoUrlSpanHandler.cs" />
-    <Compile Include="PastebinUrlSpanHandler.cs" />
-    <Compile Include="TwitterUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\VimeoUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\PastebinUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\TwitterUrlSpanHandler.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,8 +68,8 @@
     <Compile Include="IMessageSpanHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShortenedUrlSpanHandler.cs" />
-    <Compile Include="YouTubeUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\ShortenedUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\YouTubeUrlSpanHandler.cs" />
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -99,6 +104,10 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\connect.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -19,9 +20,13 @@ namespace ChatBot
     public partial class Main : Form
     {
         Skype Skype = null;
+        bool AttachedToSkype = false;
+
         DateTime LastResponseTime = DateTime.Now;
 
         Logger Logger;
+
+        CommandDispatcher CommandDispatcher;
         MessageHandler MessageHandler;
 
         public Main()
@@ -29,6 +34,7 @@ namespace ChatBot
             this.InitializeComponent();
 
             this.Logger = new Logger();
+            this.CommandDispatcher = new CommandDispatcher(this.Logger);
             this.MessageHandler = new MessageHandler(this.Logger);
 
             this.Logger.MessageLogged += delegate(string message)
@@ -48,12 +54,35 @@ namespace ChatBot
 
             this.NotifyIcon.Icon = this.Icon;
 
-            // Handlers
-            this.MessageHandler.AddSpanHandler(new PastebinUrlSpanHandler());
-            this.MessageHandler.AddSpanHandler(new ShortenedUrlSpanHandler());
-            this.MessageHandler.AddSpanHandler(new TwitterUrlSpanHandler());
-            this.MessageHandler.AddSpanHandler(new VimeoUrlSpanHandler());
-            this.MessageHandler.AddSpanHandler(new YouTubeUrlSpanHandler());
+            // Command and Message Handlers
+            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                foreach (Type type in assembly.GetTypes())
+                {
+                    if (!type.IsClass) { continue; }
+                    if (type.IsAbstract) { continue; }
+
+                    // Command Handlers
+                    if (typeof(ICommandHandler).IsAssignableFrom(type))
+                    {
+                        ConstructorInfo constructorInfo = type.GetConstructor(new Type[0] { });
+                        if (constructorInfo == null) { continue; }
+
+                        object commandHandler = constructorInfo.Invoke(null);
+                        this.CommandDispatcher.AddCommandHandler((ICommandHandler)commandHandler);
+                    }
+
+                    // Message Handlers
+                    if (typeof(IMessageSpanHandler).IsAssignableFrom(type))
+                    {
+                        ConstructorInfo constructorInfo = type.GetConstructor(new Type[0] { });
+                        if (constructorInfo == null) { continue; }
+
+                        object messageSpanHandler = constructorInfo.Invoke(null);
+                        this.MessageHandler.AddSpanHandler((IMessageSpanHandler)messageSpanHandler);
+                    }
+                }
+            }
             
             // Skype
             this.Skype = new SKYPE4COMLib.Skype();
@@ -70,37 +99,57 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://pastebin.com/8jNskG2rasdsad");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://goo.gl/jmzTY");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://vimeo.com/61930364#");
+            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping asdasd");
+            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping 2");
+            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!ping");
+            this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!pingas");
+
+            this.ConnectToSkype();
+        }
+
+        private void ConnectToSkype()
+        {
+            if (this.AttachedToSkype) { return; }
+
+            this.ConnectToSkypeButton.Enabled = false;
 
             try
             {
                 this.Skype.Attach();
+                this.AttachedToSkype = true;
+
+                this.Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
+                {
+                    try
+                    {
+                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent)
+                        {
+                            if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000) { return; }
+
+                            MessageSink messageSink = x =>
+                            {
+                                this.Logger.Log("Sending message:\n\t" + x.Replace("\n", "\n\t"));
+                                message.Chat.SendMessage(x);
+                                this.LastResponseTime = DateTime.Now;
+                            };
+
+                            if (!this.CommandDispatcher.HandleMessage(messageSink, message.Body))
+                            {
+                                this.MessageHandler.HandleMessage(messageSink, message.Body);
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        this.Logger.Log("Unhandled Exception: " + e.ToString());
+                    }
+                };
             }
             catch (COMException)
             {
                 this.Logger.Log("Failed to attach to Skype.");
+                this.ConnectToSkypeButton.Enabled = true;
             }
-            this.Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
-            {
-                try
-                {
-                    if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent)
-                    {
-                        if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000) { return; }
-
-                        MessageSink messageSink = x =>
-                        {
-                            this.Logger.Log("Sending message:\n\t" + x.Replace("\n", "\n\t"));
-                            message.Chat.SendMessage(x);
-                            this.LastResponseTime = DateTime.Now;
-                        };
-                        this.MessageHandler.HandleMessage(messageSink, message.Body);
-                    }
-                }
-                catch (Exception e)
-                {
-                    this.Logger.Log("Unhandled Exception: " + e.ToString());
-                }
-            };
         }
 
         private void Main_Resize(object sender, EventArgs e)
@@ -111,14 +160,28 @@ namespace ChatBot
             }
         }
 
+        private void NotifyIcon_DoubleClick(object sender, EventArgs e)
+        {
+            this.Visible = true;
+            this.BringToFront();
+        }
+
         private void ShowNotifyMenuItem_Click(object sender, EventArgs e)
         {
             this.Visible = true;
+            this.BringToFront();
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #region Toolbar
+        private void ConnectToSkypeButton_Click(object sender, EventArgs e)
+        {
+            this.ConnectToSkype();
+        }
+        #endregion
     }
 }
