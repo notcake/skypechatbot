@@ -40,9 +40,7 @@ namespace ChatBot.MessageSpanHandlers
             Match match = new Regex("<title>([^<]+)</title>", RegexOptions.IgnoreCase).Match(html);
             if (match == null) { return; }
 
-            string messageOut = "Facepunch:" + match.Groups[1].ToString(); // inb4 cake kills me
-
-            messageSink(messageOut);
+            messageSink(match.Groups[1].ToString());
         }
     }
 }
