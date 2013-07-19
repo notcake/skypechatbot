@@ -16,7 +16,8 @@ namespace ChatBot.MessageSpanHandlers
     {
         private string[] Urls = new string[]
         {
-            "https?://(www\\.)?xkcd\\.com"
+            "https?://(www\\.)?xkcd\\.com",
+            "https?://(www\\')?facepunch.com/showthread.php\\?(.)*(t=\\d{7})"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
