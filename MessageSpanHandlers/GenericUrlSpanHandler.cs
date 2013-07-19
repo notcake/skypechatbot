@@ -16,8 +16,17 @@ namespace ChatBot.MessageSpanHandlers
     {
         private string[] Urls = new string[]
         {
-            "https?://(www\\.)?xkcd\\.com",
-            "https?://(www\\')?facepunch.com/showthread.php\\?(.)*(t=\\d{7})"
+            "https?://(www\\.)?xkcd\\.com(/\\d)*",
+            "https?://(www\\.)?facepunch.com/showthread.php\\?(.)*(t=\\d{7})",
+			
+			// Steam
+			"https?://(www\\.)?store.steampowered.com/app/(\\d)+",
+			"https?://(www\\.)?steamcommunity.com/sharedfiles/filedetails(.)+",
+			"https?://(www\\.)?steamcommunity.com/app/(\\d)+/discussions",
+			"https?://(www\\.)?steamcommunity.com/id/([a-zA-Z0-9_]+)",
+			"https?://(www\\.)?steamcommunity.com/profiles/(\\d)+",
+			"https?://(www\\.)?steamcommunity.com/groups/([a-zA-Z0-9_]+)",
+			"https?://(www\\.)?steamcommunity.com/gid/(\\d)+"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
