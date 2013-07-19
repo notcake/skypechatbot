@@ -10,6 +10,8 @@ using Eka.Web.Twitter;
 using Eka.Web.Wikipedia;
 using Eka.Web.YouTube;
 
+
+
 namespace ChatBot.MessageSpanHandlers
 {
     public class GenericUrlSpanHandler : IMessageSpanHandler
@@ -17,6 +19,7 @@ namespace ChatBot.MessageSpanHandlers
         private string[] Urls = new string[]
         {
             "https?://(www\\.)?xkcd\\.com"
+            "https?://(www\\')?facepunch.com/showthread.php\\?(.)*(t=\\d{7})"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
