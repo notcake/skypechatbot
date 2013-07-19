@@ -22,8 +22,7 @@ namespace ChatBot.MessageSpanHandlers
 			// Steam
 			"https?://(www\\.)?store.steampowered.com/app/(\\d)+",
 			"https?://(www\\.)?steamcommunity.com/sharedfiles/filedetails(.)+",
-			"https?://(www\\.)?steamcommunity.com/app/(\\d)+/?$",
-			"https?://(www\\.)?steamcommunity.com/app/(\\d)+/discussions",
+			"https?://(www\\.)?steamcommunity.com/app/(\\d)+/?.-([^ ]?)",
 			"https?://(www\\.)?steamcommunity.com/id/([a-zA-Z0-9_]+)",
 			"https?://(www\\.)?steamcommunity.com/profiles/(\\d)+",
 			"https?://(www\\.)?steamcommunity.com/groups/([a-zA-Z0-9_]+)",
