@@ -103,6 +103,13 @@ namespace ChatBot
             this.ConnectToSkype();
         }
 
+        private static char[] randomZeroWidthCharacters = {
+                                                              (char)0x200B,
+                                                              (char)0x200C,
+                                                              (char)0x200D,
+                                                              (char)0xFEFF
+                                                          };
+
         private void ConnectToSkype()
         {
             if (this.AttachedToSkype) { return; }
@@ -125,8 +132,14 @@ namespace ChatBot
                             MessageSink messageSink = x =>
                             {
                                 this.Logger.Log("Sending message:\n\t" + x.Replace("\n", "\n\t"));
-                                ChatMessage chatMessage = message.Chat.SendMessage("_");
-                                chatMessage.Body = x;
+
+                                if (x.Length > 0)
+                                {
+                                    char firstCharacter = x[0];
+                                    x = firstCharacter + Main.randomZeroWidthCharacters[new Random().Next(Main.randomZeroWidthCharacters.Length)] + x.Substring(1);
+                                }
+
+                                message.Chat.SendMessage(x);
                                 this.LastResponseTime = DateTime.Now;
                             };
 
