@@ -17,9 +17,9 @@ namespace ChatBot
         {
             this.FullCommand = fullCommand;
 
-            string[] commandParts = fullCommand.Split(' ');
+            string[] commandParts = this.FullCommand.Split(' ');
             this.Name = commandParts[0].Substring(1);
-            this.FullArguments = fullCommand.Substring(commandParts[0].Length + 1);
+            this.FullArguments = this.FullCommand.Substring(Math.Min(this.FullCommand.Length, commandParts[0].Length + 1));
             this.arguments.AddRange(commandParts.Skip(1).AsEnumerable());
         }
 
