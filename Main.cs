@@ -125,7 +125,8 @@ namespace ChatBot
                             MessageSink messageSink = x =>
                             {
                                 this.Logger.Log("Sending message:\n\t" + x.Replace("\n", "\n\t"));
-                                message.Chat.SendMessage(x);
+                                ChatMessage chatMessage = message.Chat.SendMessage("");
+                                chatMessage.Body = x;
                                 this.LastResponseTime = DateTime.Now;
                             };
 
