@@ -136,7 +136,7 @@ namespace ChatBot
                                 if (x.Length > 0)
                                 {
                                     char firstCharacter = x[0];
-                                    x = firstCharacter + Main.randomZeroWidthCharacters[new Random().Next(Main.randomZeroWidthCharacters.Length)] + x.Substring(1);
+                                    x = firstCharacter.ToString() + Main.randomZeroWidthCharacters[new Random().Next(Main.randomZeroWidthCharacters.Length)] + x.Substring(1);
                                 }
 
                                 message.Chat.SendMessage(x);
