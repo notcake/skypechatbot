@@ -99,6 +99,7 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://pastebin.com/8jNskG2rasdsad");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://goo.gl/jmzTY");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://vimeo.com/61930364#");
+            // this.MessageHandler.HandleMessage(x => Debug.Print(x), "https://twitter.com/garrynewman/status/360042767461789698");
 
             this.ConnectToSkype();
         }
