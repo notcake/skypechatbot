@@ -14,7 +14,8 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?goo.gl/([a-zA-Z0-9_\\-]+)",
             "https?://(www\\.)?redd.it/([a-zA-Z0-9_\\-]+)",
             "https?://(www\\.)?bit.ly/([a-zA-Z0-9_\\-]+)",
-            "https?://(www\\.)?tinyurl.com/([a-zA-Z0-9_\\-]+)"
+            "https?://(www\\.)?tinyurl.com/([a-zA-Z0-9_\\-]+)",
+            "https?://(www\\.)?t.co/([a-zA-Z0-9_\\-]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
