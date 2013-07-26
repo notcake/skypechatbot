@@ -18,6 +18,7 @@ namespace ChatBot.MessageSpanHandlers
         {
             "https?://(www\\.)?xkcd\\.com(/\\d+)?/?",
             "https?://(www\\.)?facepunch.com/showthread.php\\?.*t=(\\d{7})",
+            "https?://(www\\.)?imgur.com/gallery/[a-zA-Z0-9/]*",
 			
 			// Steam
 			"https?://(www\\.)?store.steampowered.com/app/(\\d+)",
