@@ -16,9 +16,7 @@ namespace ChatBot.MessageSpanHandlers
         {
             "EUR",
             "GBP",
-            "USD",
-	    "CAD",
-	    "PLN"
+            "USD"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
