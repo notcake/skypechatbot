@@ -46,13 +46,15 @@ namespace ChatBot.MessageSpanHandlers
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
             string url = actionSpan.Data;
-            string html = new WebClient().DownloadString(url);
+            WebClient webClient = new WebClient();
+            webClient.Encoding = Encoding.UTF8;
+            string html = webClient.DownloadString(url);
             if (html == null) { return; }
 
             Match match = new Regex("<title>([^<]+)</title>", RegexOptions.IgnoreCase).Match(html);
             if (match == null) { return; }
 
-            messageSink(match.Groups[1].ToString());
+            messageSink(WebUtility.HtmlDecode(match.Groups[1].ToString()));
         }
     }
 }
