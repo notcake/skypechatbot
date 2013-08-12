@@ -21,10 +21,10 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?facepunch\\.com/member\\.php\\?([^ ]+)?u=\\d+",
             "https?://(www\\.)?reddit\\.com/[a-zA-Z0-9/_]+",
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
-            "https?://(www\\.)?forums\\.streampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
 	
             // Steam
             "https?://(www\\.)?store.steampowered\\.com/app/(\\d+)",
+            "https?://(www\\.)?forums\\.steampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
             "https?://(www\\.)?steamcommunity\\.com/sharedfiles/filedetails.+",
             "https?://(www\\.)?steamcommunity\\.com/app/(\\d+)([a-zA-Z0-9/]*)",
             "https?://(www\\.)?steamcommunity\\.com/id/([a-zA-Z0-9_]+)",
@@ -32,6 +32,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?steamcommunity\\.com/groups/([a-zA-Z0-9_]+)",
             "https?://(www\\.)?steamcommunity\\.com/gid/(\\d+)",
             "https?://(www\\.)?steamcommunity\\.com/discussions/forum/([0-9/]+)"
+
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
