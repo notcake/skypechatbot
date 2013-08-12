@@ -21,6 +21,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?facepunch\\.com/member\\.php\\?([^ ]+)?u=\\d+",
             "https?://(www\\.)?reddit\\.com/[a-zA-Z0-9/_]+",
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
+            "https?://(www\\.)?forums\\.streampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
 	
             // Steam
             "https?://(www\\.)?store.steampowered\\.com/app/(\\d+)",
