@@ -23,7 +23,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
 	
             // Steam
-            "https?://(www\\.)?store.steampowered\\.com/app/(\\d+)",
+            "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
             "https?://(www\\.)?forums\\.steampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
             "https?://(www\\.)?steamcommunity\\.com/sharedfiles/filedetails.+",
             "https?://(www\\.)?steamcommunity\\.com/app/(\\d+)([a-zA-Z0-9/]*)",
