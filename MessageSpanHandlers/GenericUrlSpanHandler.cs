@@ -32,7 +32,6 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?steamcommunity\\.com/groups/([a-zA-Z0-9_]+)",
             "https?://(www\\.)?steamcommunity\\.com/gid/(\\d+)",
             "https?://(www\\.)?steamcommunity\\.com/discussions/forum/([0-9/]+)"
-
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
