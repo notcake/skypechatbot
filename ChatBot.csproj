@@ -53,6 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatFilter.cs" />
+    <Compile Include="ChatFilterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChatFilterDialog.Designer.cs">
+      <DependentUpon>ChatFilterDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Command.cs" />
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="CommandHandlers\EchoCommandHandler.cs" />
@@ -78,6 +85,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageSpanHandlers\ShortenedUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\YouTubeUrlSpanHandler.cs" />
+    <EmbeddedResource Include="ChatFilterDialog.resx">
+      <DependentUpon>ChatFilterDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -115,7 +125,9 @@
   <ItemGroup>
     <None Include="Resources\connect.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\comments.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

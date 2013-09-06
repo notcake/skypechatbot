@@ -19,15 +19,17 @@ namespace ChatBot
 {
     public partial class Main : Form
     {
-        Skype Skype = null;
-        bool AttachedToSkype = false;
+        private Skype Skype = null;
+        private bool AttachedToSkype = false;
 
-        DateTime LastResponseTime = DateTime.Now;
+        private ChatFilter ChatFilter = new ChatFilter();
 
-        Logger Logger;
+        private DateTime LastResponseTime = DateTime.Now;
 
-        CommandDispatcher CommandDispatcher;
-        MessageHandler MessageHandler;
+        private Logger Logger;
+
+        private CommandDispatcher CommandDispatcher;
+        private MessageHandler MessageHandler;
 
         public Main()
         {
@@ -83,7 +85,7 @@ namespace ChatBot
                     }
                 }
             }
-            
+
             // Skype
             this.Skype = new SKYPE4COMLib.Skype();
 
@@ -130,6 +132,7 @@ namespace ChatBot
                     {
                         if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent)
                         {
+                            if (!this.ChatFilter.ChatPassesFilter(message.Chat)) { return; }
                             if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000) { return; }
 
                             MessageSink messageSink = x =>
@@ -194,6 +197,11 @@ namespace ChatBot
         private void ConnectToSkypeButton_Click(object sender, EventArgs e)
         {
             this.ConnectToSkype();
+        }
+
+        private void ChatFilterButton_Click(object sender, EventArgs e)
+        {
+            new ChatFilterDialog(this.Skype, this.ChatFilter).ShowDialog();
         }
         #endregion
     }

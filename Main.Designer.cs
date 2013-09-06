@@ -41,6 +41,7 @@
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Toolbar = new System.Windows.Forms.ToolStrip();
             this.ConnectToSkypeButton = new System.Windows.Forms.ToolStripButton();
+            this.ChatFilterButton = new System.Windows.Forms.ToolStripButton();
             this.NotifyMenu.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.Toolbar.SuspendLayout();
@@ -130,7 +131,8 @@
             // Toolbar
             // 
             this.Toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ConnectToSkypeButton});
+            this.ConnectToSkypeButton,
+            this.ChatFilterButton});
             this.Toolbar.Location = new System.Drawing.Point(0, 24);
             this.Toolbar.Name = "Toolbar";
             this.Toolbar.Size = new System.Drawing.Size(681, 25);
@@ -147,6 +149,17 @@
             this.ConnectToSkypeButton.Text = "toolStripButton1";
             this.ConnectToSkypeButton.ToolTipText = "Connect to Skype";
             this.ConnectToSkypeButton.Click += new System.EventHandler(this.ConnectToSkypeButton_Click);
+            // 
+            // ChatFilterButton
+            // 
+            this.ChatFilterButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ChatFilterButton.Image = global::ChatBot.Properties.Resources.comments;
+            this.ChatFilterButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ChatFilterButton.Name = "ChatFilterButton";
+            this.ChatFilterButton.Size = new System.Drawing.Size(23, 22);
+            this.ChatFilterButton.Text = "toolStripButton1";
+            this.ChatFilterButton.ToolTipText = "Chat filter...";
+            this.ChatFilterButton.Click += new System.EventHandler(this.ChatFilterButton_Click);
             // 
             // Main
             // 
@@ -184,6 +197,7 @@
         private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
         private System.Windows.Forms.ToolStrip Toolbar;
         private System.Windows.Forms.ToolStripButton ConnectToSkypeButton;
+        private System.Windows.Forms.ToolStripButton ChatFilterButton;
     }
 }
 
