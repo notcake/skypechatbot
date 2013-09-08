@@ -14,7 +14,8 @@ namespace ChatBot.MessageSpanHandlers
         private string[] YouTubeUrls = new string[]
         {
             "https?://(www\\.)?youtube\\.com/watch\\?[a-zA-Z0-9_\\-&=#]*v=([a-zA-Z0-9_\\-]+)",
-            "https?://(www\\.)?youtu\\.be/([a-zA-Z0-9_\\-]+)"
+            "https?://(www\\.)?youtu\\.be/([a-zA-Z0-9_\\-]+)",
+            "https?://(www\\.)?infinitelooper.com/\\?v=([a-zA-Z0-9_\\-]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
