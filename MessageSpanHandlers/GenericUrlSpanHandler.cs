@@ -24,7 +24,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
 			
 			// Amazon
-			"https?://(www\\.)?amazon\\.com([^ ]+)?/dp/[a-zA-Z0-9]+",
+			"https?://(www\\.)?amazon\\.(com|de)([^ ]+)?/dp/[a-zA-Z0-9]+",
 	
             // Steam
             "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
