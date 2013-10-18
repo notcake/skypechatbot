@@ -9,8 +9,8 @@ namespace ChatBot.MessageSpanHandlers
 {
     public class CurrencySpanHandler : IMessageSpanHandler
     {
-        private Regex CurrencyRegex1 = new Regex("([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK)\\s*([0-9\\.]+)", RegexOptions.IgnoreCase);
-        private Regex CurrencyRegex2 = new Regex("([0-9\\.]+)\\s*([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK)", RegexOptions.IgnoreCase);
+        private Regex CurrencyRegex1 = new Regex("([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)\\s*([0-9\\.]+)", RegexOptions.IgnoreCase);
+        private Regex CurrencyRegex2 = new Regex("([0-9\\.]+)\\s*([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)", RegexOptions.IgnoreCase);
 
         private string[] Currencies = new string[]
         {
@@ -51,7 +51,7 @@ namespace ChatBot.MessageSpanHandlers
             else if (sourceCurrency == "£") { sourceCurrency = "GBP"; }
             else if (sourceCurrency == "€") { sourceCurrency = "EUR"; }
 
-            string message = amount.ToString("0.00") + " " + sourceCurrency;
+            string message = amount.ToString("0.00") + " " + sourceCurrency.ToUpper();
 
             foreach (string destinationCurrency in this.Currencies)
             {
