@@ -15,7 +15,7 @@ namespace ChatBot.CommandHandlers
         {
             using (WebClient client = new WebClient())
             {
-                string response = client.DownloadString("http://lab.epic-empires.co.uk/stream.php");
+                string response = client.DownloadString("http://test.ryan-o.co.uk/radio/stats.php");
 
                 Dictionary<string, string> data = JsonConvert.DeserializeObject<Dictionary<string, string>>(response);
 
@@ -25,7 +25,8 @@ namespace ChatBot.CommandHandlers
                 }
                 else
                 {
-                    messageSink("Now playing with " + data["listeners"] + " listeners: " + data["artist"] + " - " + data["title"]); 
+                    messageSink("Now playing with " + data["listeners"] + " listeners: " + data["artist"] + " - " + data["title"] + "\n"
+                        + "http://dedi.ryan-o.co.uk:8000/ukgamer.ogg"); 
                 }
             }
         }
