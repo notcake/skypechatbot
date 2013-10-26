@@ -22,6 +22,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?reddit\\.com/[a-zA-Z0-9/_]+",
             "https?://pay.reddit\\.com/[a-zA-Z0-9/_]+",
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
+			"https?://(www\\.)?newgrounds.com/portal/view/\\d+",
 			
 			// Amazon
 			"https?://(www\\.)?amazon\\.(com|de)([^ ]+)?/dp/[a-zA-Z0-9]+",
