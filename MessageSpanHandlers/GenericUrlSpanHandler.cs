@@ -25,7 +25,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?newgrounds.com/portal/view/\\d+",
             
             // Amazon
-            "https?://(www\\.)?amazon\\.(com|de)([^ ]+)?/dp/[a-zA-Z0-9]+",
+            "https?://(www\\.)?amazon\\.(com|de|co\\.uk)([^ ]+)?/dp/[a-zA-Z0-9]+",
             
             // Steam
             "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
