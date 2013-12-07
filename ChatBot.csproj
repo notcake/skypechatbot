@@ -75,6 +75,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MessageSpanHandlers\CurrencySpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\GenericUrlSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\AmazonUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\VimeoUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\PastebinUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\TwitterUrlSpanHandler.cs" />

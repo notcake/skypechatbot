@@ -24,9 +24,6 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
             "https?://(www\\.)?newgrounds.com/portal/view/\\d+",
             
-            // Amazon
-            "https?://(www\\.)?amazon\\.(com|de|co\\.uk)([^ ]+)?/dp/[a-zA-Z0-9]+",
-            
             // Steam
             "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
             "https?://(www\\.)?forums\\.steampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
