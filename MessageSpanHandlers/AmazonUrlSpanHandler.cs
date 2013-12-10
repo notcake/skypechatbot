@@ -31,7 +31,7 @@ namespace ChatBot.MessageSpanHandlers
 
             if (amazon.Success)
             {
-                messageSink("Amazon: " + amazon.Title + "\n\t" + amazon.Price + ' ' + amazon.Currency);
+                messageSink("Amazon: " + amazon.Title + "\n\t" + amazon.Price);
             }
         }
     }
