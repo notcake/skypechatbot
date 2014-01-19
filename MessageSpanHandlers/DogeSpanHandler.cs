@@ -9,6 +9,7 @@ namespace ChatBot.MessageSpanHandlers
 {
     public class DogeSpanHandler : IMessageSpanHandler
     {
+        private Random rnd = new Random();
 
         private string[] DogeRegEx = new string[]
         {
@@ -47,13 +48,15 @@ namespace ChatBot.MessageSpanHandlers
             if (thesaurus.Success)
             {
                 string message = "";
-                int i = 1;
 
                 foreach (string p in DogeRegEx)
                 {
+                    if (thesaurus.Synonyms.Count == 0) break;
                     if (p != prefix)
                     {
-                        message += p + " " + thesaurus.Synonyms[i++] + "\n";
+                        int pos = rnd.Next(thesaurus.Synonyms.Count-1);
+                        message += p + " " + thesaurus.Synonyms[pos] + "\n";
+                        thesaurus.Synonyms.RemoveAt(pos);
                     }
                 }
                 
