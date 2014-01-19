@@ -68,6 +68,7 @@
     <Compile Include="CommandHandlers\EvalCommandHandler.cs" />
     <Compile Include="CommandHandlers\ChatsoundsCommandHandler.cs" />
     <Compile Include="CommandHandlers\BofhCommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlotCommandHandler.cs" />
     <Compile Include="CommandHandlers\SloganCommandHandler.cs" />
     <Compile Include="CommandHandlers\PingCommandHandler.cs" />
     <Compile Include="CommandHandlers\StreamCommandHandler.cs" />
