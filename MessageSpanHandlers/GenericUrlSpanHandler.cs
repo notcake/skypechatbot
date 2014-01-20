@@ -24,6 +24,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
             "https?://(www\\.)?newgrounds.com/portal/view/\\d+",
             
+            
             // Steam
             "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
             "https?://(www\\.)?forums\\.steampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
