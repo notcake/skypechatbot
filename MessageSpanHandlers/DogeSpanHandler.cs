@@ -40,8 +40,8 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            string prefix = actionSpan.Match.Groups[1].ToString();
-            string word = actionSpan.Match.Groups[2].ToString();
+            string prefix = actionSpan.Match.Groups[1].ToString().ToLower();
+            string word = actionSpan.Match.Groups[2].ToString().ToLower();
 
             Thesaurus thesaurus = new Thesaurus(word);
 
