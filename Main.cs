@@ -138,6 +138,7 @@ namespace ChatBot
                             MessageSink messageSink = x =>
                             {
                                 this.Logger.Log("Sending message:\n\t" + x.Replace("\n", "\n\t"));
+                                x = x.Trim();
 
                                 if (x.Length > 0)
                                 {
