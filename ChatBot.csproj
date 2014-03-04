@@ -38,9 +38,9 @@
     <Reference Include="Eka.Web">
       <HintPath>..\Eka#.Web\bin\Debug\Eka.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Command.cs" />
     <Compile Include="CommandDispatcher.cs" />
+    <Compile Include="CommandHandlers\DefinitionCommandHandler.cs" />
     <Compile Include="CommandHandlers\EchoCommandHandler.cs" />
     <Compile Include="CommandHandlers\EvalCommandHandler.cs" />
     <Compile Include="CommandHandlers\ChatsoundsCommandHandler.cs" />
@@ -112,6 +113,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
