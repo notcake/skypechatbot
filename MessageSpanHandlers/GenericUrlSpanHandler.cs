@@ -33,7 +33,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?steamcommunity\\.com/profiles/(\\d+)",
             "https?://(www\\.)?steamcommunity\\.com/gid/(\\d+)",
             "https?://(www\\.)?steamcommunity\\.com/discussions/forum/([0-9/]+)",
-            "https?://(www\\.)?steamcommunity\\.com/(app|groups|workshop/filedetails)/discussions?/(\\d+)/(\\d+)",
+            "https?://(www\\.)?steamcommunity\\.com/(app\\d+|groups/[a-zA-Z0-9_-]+|workshop/filedetails)/discussions?/(\\d+)/(\\d+)",
             "https?://(www\\.)?steamcommunity\\.com/app/(\\d+)([a-zA-Z0-9/_-]*)",
             "https?://(www\\.)?steamcommunity\\.com/groups/([a-zA-Z0-9_-]+)"
         };
