@@ -10,7 +10,7 @@ namespace ChatBot.CommandHandlers
     {
        public static String GetLink(string expression)
        {
-           String link = "http://threekelv.in/keylimepie/chatsounds/?s=";
+           String link = "http://chatsounds.3kelv.in/?s=";
            link = link + System.Web.HttpUtility.UrlPathEncode(expression);
            return link;
        }
