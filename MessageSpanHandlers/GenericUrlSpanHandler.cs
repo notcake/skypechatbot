@@ -38,7 +38,9 @@ namespace ChatBot.MessageSpanHandlers
             // Soundclound
             "https?://(www\\.)?(soundcloud.com|snd.cc)/.+",
             // osu
-            "https?://(www\\.)?(osu.ppy.sh)/(b|u|forum/t|s)/([a-zA-Z0-9_-]+)"
+            "https?://(www\\.)?(osu.ppy.sh)/(b|u|forum/t|s)/([a-zA-Z0-9_-]+)",
+            // imgur
+            "https?://(www\\.)?(imgur\\.com)/gallery/([a-zA-Z0-9_-]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
