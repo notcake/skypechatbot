@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Net;
+using System.Text;
+using ChatBot.Commands;
 using Eka.Web.UrbanDictionary;
 
 namespace ChatBot.CommandHandlers
@@ -18,9 +19,13 @@ namespace ChatBot.CommandHandlers
         {
             UrbanDictionary dictionary = new UrbanDictionary(command.FullArguments);
             if (dictionary.Success)
+            {
                 messageSink(dictionary.Definition + (dictionary.Example != null ? "\nExample: " + dictionary.Example : ""));
+            }
             else
-            	messageSink("No definition found.");
+            {
+                messageSink("No definition found.");
+            }
         }
     }
 }

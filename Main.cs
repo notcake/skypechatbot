@@ -13,6 +13,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
+using ChatBot.CommandHandlers;
+using ChatBot.Commands;
+using ChatBot.MessageSpanHandlers;
 using SKYPE4COMLib;
 
 namespace ChatBot

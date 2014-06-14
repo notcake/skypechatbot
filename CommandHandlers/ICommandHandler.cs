@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ChatBot.Commands;
 
-namespace ChatBot
+namespace ChatBot.CommandHandlers
 {
     public interface ICommandHandler
     {

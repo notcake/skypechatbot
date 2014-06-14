@@ -61,8 +61,8 @@
     <Compile Include="ChatFilterDialog.Designer.cs">
       <DependentUpon>ChatFilterDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Command.cs" />
-    <Compile Include="CommandDispatcher.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandDispatcher.cs" />
     <Compile Include="CommandHandlers\DefinitionCommandHandler.cs" />
     <Compile Include="CommandHandlers\EchoCommandHandler.cs" />
     <Compile Include="CommandHandlers\EvalCommandHandler.cs" />
@@ -73,7 +73,8 @@
     <Compile Include="CommandHandlers\SloganCommandHandler.cs" />
     <Compile Include="CommandHandlers\PingCommandHandler.cs" />
     <Compile Include="CommandHandlers\StreamCommandHandler.cs" />
-    <Compile Include="ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="Commands\CommandParser.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MessageSpanHandlers\CurrencySpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\GenericUrlSpanHandler.cs" />
@@ -90,7 +91,7 @@
     </Compile>
     <Compile Include="MessageActionSpan.cs" />
     <Compile Include="MessageHandler.cs" />
-    <Compile Include="IMessageSpanHandler.cs" />
+    <Compile Include="MessageSpanHandlers\IMessageSpanHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageSpanHandlers\ShortenedUrlSpanHandler.cs" />

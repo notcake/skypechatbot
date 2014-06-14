@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ChatBot
+namespace ChatBot.Commands
 {
     public class Command
     {
@@ -17,10 +17,10 @@ namespace ChatBot
         {
             this.FullCommand = fullCommand;
 
-            string[] commandParts = this.FullCommand.Split(' ');
-            this.Name = commandParts[0].Substring(1);
-            this.FullArguments = this.FullCommand.Substring(Math.Min(this.FullCommand.Length, commandParts[0].Length + 1));
-            this.arguments.AddRange(commandParts.Skip(1).AsEnumerable());
+            Tuple<string, string[], string> parsedCommand = new CommandParser().Parse(fullCommand);
+            this.Name = parsedCommand.Item1;
+            this.arguments.AddRange(parsedCommand.Item2);
+            this.FullArguments = parsedCommand.Item3;
         }
 
         public IList<string> Arguments
