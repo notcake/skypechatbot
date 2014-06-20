@@ -152,6 +152,7 @@ namespace ChatBot.CommandHandlers
                             case "accuracy": { handler = "get_user"; method = "accuracy"; } break;
                             case "score": { handler = "get_user"; method = "ranked_score"; } break;
                             case "rank": { handler = "get_user"; method = "pp_rank"; } break;
+                            case "level": { handler = "get_user"; method = "level"; } break;
                             case "lp":
                             case "lastplayed": { handler = "get_user_recent"; } break;
                         }
