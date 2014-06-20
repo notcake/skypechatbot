@@ -229,7 +229,7 @@ namespace ChatBot.CommandHandlers
                         decimal.TryParse(result.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
                         string country = result.Data[0]["country"].ToString();
 
-                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F") + "%" + "\n" + country);
+                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
                     }
 
