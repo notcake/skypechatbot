@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Linq;  
+using System.Linq;
 using ChatBot.Commands;
 using Newtonsoft.Json.Linq;
 
@@ -234,6 +234,7 @@ namespace ChatBot.CommandHandlers
 
                             string title = beatmap.Data[0]["title"].ToString();
                             string artist = beatmap.Data[0]["artist"].ToString();
+                            string diff = beatmap.Data[0]["version"].ToString();
                             string rank = result.Data[0]["rank"].ToString();
                             int maxcombo;
                             int.TryParse(result.Data[0]["maxcombo"].ToString(), out maxcombo);
@@ -241,11 +242,14 @@ namespace ChatBot.CommandHandlers
                             int.TryParse(result.Data[0]["countmiss"].ToString(), out misses);
                             int emods;
                             int.TryParse(result.Data[0]["enabled_mods"].ToString(), out emods);
-                            
-                            Mods mods = (Mods)emods;
-                                                          
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + "\n"+ "Mods: "+ mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
+                            string url = "https://osu.ppy.sh/b/" + beatmapid;
+
+
+                            Mods mods = (Mods)emods;
+
+
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
                         }
                         else
                         {
