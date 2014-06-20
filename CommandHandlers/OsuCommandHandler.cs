@@ -62,7 +62,7 @@ namespace ChatBot.CommandHandlers
 
             if (cnt < 1)
             {
-                messageSink("Usage: todo");
+                messageSink("Usage:\n !osu [command] [args]\n Available Commands: stats,pp,acc,rank,score,playcount/pc,lastplayed/lp");
             }
             else
             {
@@ -95,6 +95,7 @@ namespace ChatBot.CommandHandlers
 
                                 }
                                 break;
+                            case"pc":
                             case "playcount":
                                 {
                                     string req = GetStr("get_user", "playcount", "&u=" + cmd[1]);
