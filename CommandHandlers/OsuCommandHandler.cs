@@ -89,6 +89,7 @@ namespace ChatBot.CommandHandlers
             string method = "";
             string handler = "";
             string nothing = "";
+            string pattern = "";
 
             // 1 = get_beatmaps
             // 2 = get_user
@@ -145,14 +146,14 @@ namespace ChatBot.CommandHandlers
                         {
                             // u wot m8
                             case "stats": { handler = "get_user"; } break;
-                            case "pp": { handler = "get_user"; method = "pp_raw"; } break;
+                            case "pp": { handler = "get_user"; method = "pp_raw"; pattern = "#,#"; } break;
                             case "pc":
-                            case "playcount": { handler = "get_user"; method = "playcount"; } break;
+                            case "playcount": { handler = "get_user"; method = "playcount"; pattern = "#,#"; } break;
                             case "acc":
-                            case "accuracy": { handler = "get_user"; method = "accuracy"; } break;
-                            case "score": { handler = "get_user"; method = "ranked_score"; } break;
-                            case "rank": { handler = "get_user"; method = "pp_rank"; } break;
-                            case "level": { handler = "get_user"; method = "level"; } break;
+                            case "accuracy": { handler = "get_user"; method = "accuracy"; pattern = "#,#"; } break;
+                            case "score": { handler = "get_user"; method = "ranked_score"; pattern = "#,#"; } break;
+                            case "rank": { handler = "get_user"; method = "pp_rank"; pattern = "#,#"; } break;
+                            case "level": { handler = "get_user"; method = "level"; pattern = "#"; } break;
                             case "lp":
                             case "lastplayed": { handler = "get_user_recent"; } break;
                         }
@@ -172,7 +173,7 @@ namespace ChatBot.CommandHandlers
                     {
                         if (num > 0)
                         {
-                            messageSink(num.ToString("#,#"));
+                            messageSink(num.ToString(pattern));
                         }
                         else
                         {
