@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Linq;  
 using ChatBot.Commands;
 using Newtonsoft.Json.Linq;
 
@@ -24,6 +26,37 @@ namespace ChatBot.CommandHandlers
             public string Err { get; set; }
         }
 
+        [Flags]
+        public enum Mods
+        {
+
+            None = 0,
+            NF = 1,
+            EZ = 2,
+            //NV = 4,
+            HD = 8,
+            HR = 16,
+            SD = 32,
+            DT = 64,
+            RX = 128,
+            HT = 256,
+            NC = 512,
+            FL = 1024,
+            AP = 2048,
+            SO = 4096,
+            RX2 = 8192,  // Autopilot?
+            PF = 16384,
+            Key4 = 32768,
+            Key5 = 65536,
+            Key6 = 131072,
+            Key7 = 262144,
+            Key8 = 524288,
+            keyMod = Key4 | Key5 | Key6 | Key7 | Key8,
+            FadeIn = 1048576,
+            Random = 2097152,
+            LastMod = 4194304,
+            FreeModAllowed = NF | EZ | HD | HR | SD | FL | FadeIn | RX | RX2 | SO | keyMod
+        }
 
         /// <summary>
         /// I'm really proud of this one
@@ -206,8 +239,13 @@ namespace ChatBot.CommandHandlers
                             int.TryParse(result.Data[0]["maxcombo"].ToString(), out maxcombo);
                             int misses;
                             int.TryParse(result.Data[0]["countmiss"].ToString(), out misses);
+                            int emods;
+                            int.TryParse(result.Data[0]["enabled_mods"].ToString(), out emods);
+                            
+                            Mods mods = (Mods)emods;
+                                                          
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + "\n" + "Rank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
+                            messageSink("Lastplayed: " + title + " by: " + artist + "\n"+ "Mods: "+ mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
                         }
                         else
                         {
