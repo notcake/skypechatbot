@@ -83,69 +83,85 @@ namespace ChatBot.CommandHandlers
                                     decimal pp;
                                     bool yes = decimal.TryParse(req.Replace(".", ","), out pp);
 
-                                    if (yes & pp > 0)
+                                    if (yes)
                                     {
-                                        messageSink(pp.ToString("#,#"));
-                                    }
-                                    else
-                                    {
-                                        messageSink("Invalid user or user has no pp!");
+                                        if (pp > 0)
+                                        {
+                                            messageSink(pp.ToString("#,#"));
+                                        }
+                                        else
+                                        {
+                                            messageSink("Invalid user or user has no pp!");
+                                        }
                                     }
 
 
+                                    break;
                                 }
-                                break;
-                            case"pc":
+
+                            case "pc":
                             case "playcount":
                                 {
                                     string req = GetStr("get_user", "playcount", "&u=" + cmd[1]);
                                     int playcount;
                                     bool yes = int.TryParse(req, out playcount);
 
-                                    if (yes & playcount > 0)
+                                    if (yes)
                                     {
-                                        messageSink(playcount.ToString("#,#"));
+                                        if (playcount > 0)
+                                        {
+                                            messageSink(playcount.ToString("#,#"));
+                                        }
+                                        else
+                                        {
+                                            messageSink("Invalid user or user has not played yet!");
+                                        }
                                     }
-                                    else
-                                    {
-                                        messageSink("Invalid user or user has not played yet!");
-                                    }
+                                    break;
                                 }
-                                break;
+
                             case "score":
                                 {
                                     string req = GetStr("get_user", "ranked_score", "&u=" + cmd[1]);
                                     decimal score;
                                     bool yes = decimal.TryParse(req.Replace(".", ","), out score);
 
-                                    if (yes & score > 0)
+                                    if (yes)
                                     {
-                                        messageSink(score.ToString("#,#"));
-                                    }
-                                    else
-                                    {
-                                        messageSink("Invalid user or user has no score!");
+                                        if (score > 0)
+                                        {
+                                            messageSink(score.ToString("#,#"));
+                                        }
+                                        else
+                                        {
+                                            messageSink("Invalid user or user has no score!");
+                                        }
                                     }
 
+                                    break;
                                 }
-                                break;
+
                             case "rank":
                                 {
                                     string req = GetStr("get_user", "pp_rank", "&u=" + cmd[1]);
                                     decimal rank;
                                     bool yes = decimal.TryParse(req.Replace(".", ","), out rank);
 
-                                    if (yes & rank > 0)
+                                    if (yes)
                                     {
-                                        messageSink(rank.ToString("#,#"));
-                                    }
-                                    else
-                                    {
-                                        messageSink("Invalid user or user has no rank!");
+                                        if (rank > 0)
+                                        {
+                                            messageSink(rank.ToString("#,#"));
+                                        }
+                                        else
+                                        {
+                                            messageSink("Invalid user or user has no rank!");
+                                        }
                                     }
 
+                                    break;
                                 }
-                                break;
+
                             case "acc":
                             case "accuracy":
                                 {
@@ -153,17 +169,22 @@ namespace ChatBot.CommandHandlers
                                     decimal acc;
                                     bool yes = decimal.TryParse(req.Replace(".", ","), out acc);
 
-                                    if (yes & acc > 0)
+                                    if (yes)
                                     {
-                                        messageSink(acc.ToString("F") + "%");
+                                        if (acc > 0)
+                                        {
+                                            messageSink(acc.ToString("F") + "%");
+                                        }
 
+                                        else
+                                        {
+                                            messageSink("Invalid user or user has no acc!");
+                                        }
                                     }
-                                    else
-                                    {
-                                        messageSink("Invalid user or user has no acc!");
-                                    }
+
+                                    break;
                                 }
-                                break;
+
                             case "lastplayed":
                             case "lp":
                                 {
@@ -201,9 +222,9 @@ namespace ChatBot.CommandHandlers
                                         messageSink("Couldn't Parse data!");
                                     }
 
-
+                                    break;
                                 }
-                                break;
+
                             case "stats":
                                 {
                                     JArray data = GetData("get_user", "&u=" + cmd[1]);
@@ -225,9 +246,10 @@ namespace ChatBot.CommandHandlers
                                     messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F") + "%" + "\n" + country);
 
 
-
+                                    break;
                                 }
-                                break;
+
+
                         }
                         break;
                 }
