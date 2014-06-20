@@ -201,14 +201,13 @@ namespace ChatBot.CommandHandlers
 
                             string title = beatmap.Data[0]["title"].ToString();
                             string artist = beatmap.Data[0]["artist"].ToString();
-                            int rank;
-                            int.TryParse(result.Data[0]["rank"].ToString(), out rank);
+                            string rank = result.Data[0]["rank"].ToString();
                             int maxcombo;
                             int.TryParse(result.Data[0]["maxcombo"].ToString(), out maxcombo);
                             int misses;
                             int.TryParse(result.Data[0]["countmiss"].ToString(), out misses);
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + "\n" + "Rank: " + rank.ToString("#,#") + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
+                            messageSink("Lastplayed: " + title + " by: " + artist + "\n" + "Rank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
                         }
                         else
                         {
@@ -229,7 +228,7 @@ namespace ChatBot.CommandHandlers
                         decimal.TryParse(result.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
                         string country = result.Data[0]["country"].ToString();
 
-                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
+                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
                     }
 
