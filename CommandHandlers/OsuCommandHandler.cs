@@ -196,11 +196,11 @@ namespace ChatBot.CommandHandlers
 
             if (handler.Length > 0 & method.Length > 0)
             {
-                Result result = GetData(handler, method, "&u=" + cmd[1]);
-                if (result.Success)
+                Result user = GetData(handler, method, "&u=" + cmd[1]);
+                if (user.Success)
                 {
                     decimal num;
-                    bool yes = decimal.TryParse(result.Str.Replace(".", ","), out num);
+                    bool yes = decimal.TryParse(user.Str.Replace(".", ","), out num);
 
                     if (yes)
                     {
@@ -216,18 +216,18 @@ namespace ChatBot.CommandHandlers
                 }
                 else
                 {
-                    messageSink("ERR: " + result.Err);
+                    messageSink("ERR: " + user.Err);
                 }
             }
             else if (handler.Length > 0 & method.Length < 1)
             {
-                Result result = GetData(handler, nothing, "&u=" + cmd[1]);
-                if (result.Success)
+                Result user = GetData(handler, nothing, "&u=" + cmd[1]);
+                if (user.Success)
                 {
                     if (handler == "get_user_recent")
                     {
                         int beatmapid;
-                        int.TryParse(result.Data[0]["beatmap_id"].ToString(), out beatmapid);
+                        int.TryParse(user.Data[0]["beatmap_id"].ToString(), out beatmapid);
                         Result beatmap = GetData("get_beatmaps", nothing, "&b=" + beatmapid);
                         if (beatmap.Success)
                         {
@@ -235,13 +235,21 @@ namespace ChatBot.CommandHandlers
                             string title = beatmap.Data[0]["title"].ToString();
                             string artist = beatmap.Data[0]["artist"].ToString();
                             string diff = beatmap.Data[0]["version"].ToString();
-                            string rank = result.Data[0]["rank"].ToString();
+                            string rank = user.Data[0]["rank"].ToString();
                             int maxcombo;
-                            int.TryParse(result.Data[0]["maxcombo"].ToString(), out maxcombo);
+                            int.TryParse(user.Data[0]["maxcombo"].ToString(), out maxcombo);
                             int misses;
-                            int.TryParse(result.Data[0]["countmiss"].ToString(), out misses);
+                            int.TryParse(user.Data[0]["countmiss"].ToString(), out misses);
                             int emods;
-                            int.TryParse(result.Data[0]["enabled_mods"].ToString(), out emods);
+                            int.TryParse(user.Data[0]["enabled_mods"].ToString(), out emods);
+                            int pf;
+                            int.TryParse(user.Data[0]["perfect"].ToString(), out pf);
+                            string perfect = "";
+
+                            if (pf > 0)
+                            {
+                                perfect = "FULL COMBO!";
+                            }
 
                             string url = "https://osu.ppy.sh/b/" + beatmapid;
 
@@ -249,7 +257,7 @@ namespace ChatBot.CommandHandlers
                             Mods mods = (Mods)emods;
 
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\n" + perfect);
                         }
                         else
                         {
@@ -259,16 +267,16 @@ namespace ChatBot.CommandHandlers
                     else if (handler == "get_user")
                     {
                         decimal pp;
-                        decimal.TryParse(result.Data[0]["pp_raw"].ToString().Replace(".", ","), out pp);
+                        decimal.TryParse(user.Data[0]["pp_raw"].ToString().Replace(".", ","), out pp);
                         decimal rank;
-                        decimal.TryParse(result.Data[0]["pp_rank"].ToString().Replace(".", ","), out rank);
+                        decimal.TryParse(user.Data[0]["pp_rank"].ToString().Replace(".", ","), out rank);
                         decimal score;
-                        decimal.TryParse(result.Data[0]["ranked_score"].ToString().Replace(".", ","), out score);
+                        decimal.TryParse(user.Data[0]["ranked_score"].ToString().Replace(".", ","), out score);
                         decimal level;
-                        decimal.TryParse(result.Data[0]["level"].ToString().Replace(".", ","), out level);
+                        decimal.TryParse(user.Data[0]["level"].ToString().Replace(".", ","), out level);
                         decimal acc;
-                        decimal.TryParse(result.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
-                        string country = result.Data[0]["country"].ToString();
+                        decimal.TryParse(user.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
+                        string country = user.Data[0]["country"].ToString();
 
                         messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
@@ -277,7 +285,7 @@ namespace ChatBot.CommandHandlers
                 }
                 else
                 {
-                    messageSink("ERR: " + result.Err);
+                    messageSink("ERR: " + user.Err);
                 }
 
             }
