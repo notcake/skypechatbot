@@ -253,7 +253,8 @@ namespace ChatBot.CommandHandlers
                             float pp = 0;
                             if (score.Success)
                             {
-                                float.TryParse(score.Data[0]["pp"].ToString().Replace(".", ","), out pp);
+                                float.TryParse(score.Data[0]["pp"].ToString().Replace(".",","), out pp);
+                                
                             }
                             else
                             {
@@ -272,7 +273,7 @@ namespace ChatBot.CommandHandlers
                             Mods mods = (Mods)emods;
 
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\nPP: " + pp.ToString("n2") + "\n" + perfect);
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo + "\n" + "Miss: " + misses.ToString("#,#") + "\nPP: " + pp.ToString("0.00") + "\n" + perfect);
                         }
                         else
                         {
