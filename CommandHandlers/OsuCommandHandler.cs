@@ -22,6 +22,7 @@ namespace ChatBot.CommandHandlers
         {
             public bool Success { get; set; }
             public string Str { get; set; }
+            public string DBG { get; set; }
             public JArray Data { get; set; }
             public string Err { get; set; }
         }
@@ -78,6 +79,7 @@ namespace ChatBot.CommandHandlers
                         if (result.Data.Count > 0)
                         {
                             result.Success = true;
+                            result.DBG = result.Data.ToString();
                         }
                         else
                         {
@@ -92,6 +94,7 @@ namespace ChatBot.CommandHandlers
                         {
                             result.Str = data[0][req].ToString();
                             result.Success = true;
+                            result.DBG = data.ToString();
                         }
                         else
                         {
@@ -229,6 +232,8 @@ namespace ChatBot.CommandHandlers
                         int beatmapid;
                         int.TryParse(user.Data[0]["beatmap_id"].ToString(), out beatmapid);
                         Result beatmap = GetData("get_beatmaps", nothing, "&b=" + beatmapid);
+                        int userid;
+                        int.TryParse(user.Data[0]["user_id"].ToString(), out userid);
                         if (beatmap.Success)
                         {
 
@@ -244,6 +249,16 @@ namespace ChatBot.CommandHandlers
                             int.TryParse(user.Data[0]["enabled_mods"].ToString(), out emods);
                             int pf;
                             int.TryParse(user.Data[0]["perfect"].ToString(), out pf);
+                            Result score = GetData("get_scores", "", "&u=" + userid, "&b=" + beatmapid);
+                            float pp = 0;
+                            if (score.Success)
+                            {
+                                float.TryParse(score.Data[0]["pp"].ToString().Replace(".", ","), out pp);
+                            }
+                            else
+                            {
+                                messageSink("Could not get score!");
+                            }
                             string perfect = "";
 
                             if (pf > 0)
@@ -257,7 +272,7 @@ namespace ChatBot.CommandHandlers
                             Mods mods = (Mods)emods;
 
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\n" + perfect);
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\nPP: " + pp.ToString("0.00") + "\n" + perfect);
                         }
                         else
                         {
