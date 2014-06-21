@@ -273,7 +273,7 @@ namespace ChatBot.CommandHandlers
                             Mods mods = (Mods)emods;
 
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo + "\n" + "Miss: " + misses.ToString("#,#") + "\nPP: " + pp.ToString("0.00") + "\n" + perfect);
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\n" + perfect);
                         }
                         else
                         {
