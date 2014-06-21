@@ -163,7 +163,7 @@ namespace ChatBot.CommandHandlers
 
             if (cnt < 1)
             {
-                messageSink("Usage:\n !osu [command] [args]\n Available Commands: stats,pp,acc,rank,score,level,playcount/pc,lastplayed/lp");
+                messageSink("Usage:\n !osu [command] [args]\n Available Commands: stats,pp,acc,rank,score,playcount/pc,lastplayed/lp");
             }
             else
             {
@@ -240,8 +240,6 @@ namespace ChatBot.CommandHandlers
                             int.TryParse(result.Data[0]["maxcombo"].ToString(), out maxcombo);
                             int misses;
                             int.TryParse(result.Data[0]["countmiss"].ToString(), out misses);
-                            int accuracy;
-                            int.TryParse(result.Data[0]["accuracy"].ToString(), out accuracy);
                             int emods;
                             int.TryParse(result.Data[0]["enabled_mods"].ToString(), out emods);
 
@@ -251,7 +249,7 @@ namespace ChatBot.CommandHandlers
                             Mods mods = (Mods)emods;
 
 
-                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#") + "\nAccuracy: " + accuracy.ToString("F3") + "%");
+                            messageSink("Lastplayed: " + title + " by: " + artist + " [" + diff + "] " + "\n" + url + "\nMods: " + mods + "\nRank: " + rank + "\n" + "Max Combo: " + maxcombo.ToString("#,#") + "\n" + "Miss: " + misses.ToString("#,#"));
                         }
                         else
                         {
@@ -272,7 +270,7 @@ namespace ChatBot.CommandHandlers
                         decimal.TryParse(result.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
                         string country = result.Data[0]["country"].ToString();
 
-                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAccuracy: " + acc.ToString("F3") + "%" + "\n" + country);
+                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
                     }
 
