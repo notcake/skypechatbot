@@ -230,10 +230,10 @@ namespace ChatBot.CommandHandlers
                 {
                     if (handler == "get_user_recent")
                     {
-                        int beatmapid;
+                        int beatmapid = 0;
                         int.TryParse(user.Data[0]["beatmap_id"].ToString(), out beatmapid);
                         Result beatmap = GetData("get_beatmaps", nothing, "&b=" + beatmapid);
-                        int userid;
+                        int userid = 0;
                         int.TryParse(user.Data[0]["user_id"].ToString(), out userid);
                         if (beatmap.Success)
                         {
@@ -242,13 +242,13 @@ namespace ChatBot.CommandHandlers
                             string artist = beatmap.Data[0]["artist"].ToString();
                             string diff = beatmap.Data[0]["version"].ToString();
                             string rank = user.Data[0]["rank"].ToString();
-                            int maxcombo;
+                            int maxcombo = 0;
                             int.TryParse(user.Data[0]["maxcombo"].ToString(), out maxcombo);
-                            int misses;
+                            int misses = 0;
                             int.TryParse(user.Data[0]["countmiss"].ToString(), out misses);
-                            int emods;
+                            int emods = 0;
                             int.TryParse(user.Data[0]["enabled_mods"].ToString(), out emods);
-                            int pf;
+                            int pf = 0;
                             int.TryParse(user.Data[0]["perfect"].ToString(), out pf);
                             Result score = GetData("get_scores", "", "&u=" + userid, "&b=" + beatmapid);
                             float pp = 0;
@@ -265,7 +265,7 @@ namespace ChatBot.CommandHandlers
 
                             if (pf > 0)
                             {
-                                perfect = "FULL COMBO!";
+                                perfect = "PERFECT!";
                             }
 
                             string url = "https://osu.ppy.sh/b/" + beatmapid;
@@ -283,15 +283,15 @@ namespace ChatBot.CommandHandlers
                     }
                     else if (handler == "get_user")
                     {
-                        decimal pp;
+                        decimal pp = 0;
                         decimal.TryParse(user.Data[0]["pp_raw"].ToString(), out pp);
-                        decimal rank;
+                        decimal rank = 0;
                         decimal.TryParse(user.Data[0]["pp_rank"].ToString().Replace(".", ","), out rank);
-                        decimal score;
+                        decimal score = 0;
                         decimal.TryParse(user.Data[0]["ranked_score"].ToString().Replace(".", ","), out score);
-                        decimal level;
+                        decimal level = 0;
                         decimal.TryParse(user.Data[0]["level"].ToString(), out level);
-                        decimal acc;
+                        decimal acc = 0;
                         decimal.TryParse(user.Data[0]["accuracy"].ToString(), out acc);
                         string country = user.Data[0]["country"].ToString();
 
