@@ -183,7 +183,7 @@ namespace ChatBot.CommandHandlers
                         {
                             // u wot m8
                             case "stats": { handler = "get_user"; } break;
-                            case "pp": { handler = "get_user"; method = "pp_raw"; pattern = "#,#"; } break;
+                            case "pp": { handler = "get_user"; method = "pp_raw"; pattern = "F1"; } break;
                             case "pc":
                             case "playcount": { handler = "get_user"; method = "playcount"; pattern = "#,#"; } break;
                             case "acc":
@@ -295,7 +295,7 @@ namespace ChatBot.CommandHandlers
                         decimal.TryParse(user.Data[0]["accuracy"].ToString(), out acc);
                         string country = user.Data[0]["country"].ToString();
 
-                        messageSink(cmd[1] + "\n\n" + "Rank: #" + rank.ToString("#,#") + "\nPP: " + pp.ToString() + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
+                        messageSink(cmd[1] + "\n\n" + "Rank: #" + rank.ToString("#,#") + "\nPP: " + pp.ToString("F1") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
                     }
 
