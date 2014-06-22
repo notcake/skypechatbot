@@ -126,6 +126,7 @@ namespace ChatBot.CommandHandlers
             string handler = "";
             string nothing = "";
             string pattern = "";
+            string extra = "";
 
             // 1 = get_beatmaps
             // 2 = get_user
@@ -186,7 +187,7 @@ namespace ChatBot.CommandHandlers
                             case "pc":
                             case "playcount": { handler = "get_user"; method = "playcount"; pattern = "#,#"; } break;
                             case "acc":
-                            case "accuracy": { handler = "get_user"; method = "accuracy"; pattern = "#,#"; } break;
+                            case "accuracy": { handler = "get_user"; method = "accuracy"; pattern = "F3"; extra = "%"; } break;
                             case "score": { handler = "get_user"; method = "ranked_score"; pattern = "#,#"; } break;
                             case "rank": { handler = "get_user"; method = "pp_rank"; pattern = "#,#"; } break;
                             case "level": { handler = "get_user"; method = "level"; pattern = "F0"; } break;
@@ -203,13 +204,13 @@ namespace ChatBot.CommandHandlers
                 if (user.Success)
                 {
                     decimal num;
-                    bool yes = decimal.TryParse(user.Str.Replace(".", ","), out num);
+                    bool yes = decimal.TryParse(user.Str, out num);
 
                     if (yes)
                     {
                         if (num > 0)
                         {
-                            messageSink(num.ToString(pattern));
+                            messageSink(num.ToString(pattern) + extra);
                         }
                         else
                         {
@@ -283,18 +284,18 @@ namespace ChatBot.CommandHandlers
                     else if (handler == "get_user")
                     {
                         decimal pp;
-                        decimal.TryParse(user.Data[0]["pp_raw"].ToString().Replace(".", ","), out pp);
+                        decimal.TryParse(user.Data[0]["pp_raw"].ToString(), out pp);
                         decimal rank;
                         decimal.TryParse(user.Data[0]["pp_rank"].ToString().Replace(".", ","), out rank);
                         decimal score;
                         decimal.TryParse(user.Data[0]["ranked_score"].ToString().Replace(".", ","), out score);
                         decimal level;
-                        decimal.TryParse(user.Data[0]["level"].ToString().Replace(".", ","), out level);
+                        decimal.TryParse(user.Data[0]["level"].ToString(), out level);
                         decimal acc;
-                        decimal.TryParse(user.Data[0]["accuracy"].ToString().Replace(".", ","), out acc);
+                        decimal.TryParse(user.Data[0]["accuracy"].ToString(), out acc);
                         string country = user.Data[0]["country"].ToString();
 
-                        messageSink(cmd[1] + "\n\n" + "Rank: " + rank.ToString("#,#") + "\nPP: " + pp.ToString("#,#") + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
+                        messageSink(cmd[1] + "\n\n" + "Rank: #" + rank.ToString("#,#") + "\nPP: " + pp.ToString() + "\nScore: " + score.ToString("#,#") + "\nLevel: " + level.ToString("#,#") + "\nAcc: " + acc.ToString("F3") + "%" + "\n" + country);
 
                     }
 
