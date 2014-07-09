@@ -51,7 +51,7 @@ namespace ChatBot
 
         private void ChatFilterDialog_Load(object sender, EventArgs e)
         {
-            foreach (Chat chat in this.Skype.RecentChats)
+            foreach (Chat chat in this.Skype.ActiveChats)
             {
                 this.ChatListBox.Items.Add(new ChatItem(chat), this.ChatFilter.ChatPassesFilter(chat));
             }
