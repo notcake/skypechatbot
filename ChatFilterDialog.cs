@@ -51,11 +51,7 @@ namespace ChatBot
 
         private void ChatFilterDialog_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-            foreach (Chat chat in this.Skype.Chats)
-=======
             foreach (Chat chat in this.Skype.RecentChats)
->>>>>>> parent of 9e12189... let's see if we brea- fix hal not listing all chats.
             {
                 this.ChatListBox.Items.Add(new ChatItem(chat), this.ChatFilter.ChatPassesFilter(chat));
             }
