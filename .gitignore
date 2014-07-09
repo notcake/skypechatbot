@@ -36,3 +36,5 @@ Thumbs.db
 *.txt
 *.php
 eka.web/
+bin/Release/Newtonsoft.Json.xml
+bin/Debug/Newtonsoft.Json.xml
