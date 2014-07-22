@@ -36,7 +36,7 @@ namespace ChatBot.CommandHandlers
                 }
                 else
                 {
-                    messageSink(string.Format("Now playing : {0} - {1}\n{2}", data["artist"], data["title"], url));
+                    messageSink(string.Format("Now playing: {0} - {1}\n{2}", data["artist"], data["title"], url));
                 }
             }
         }
