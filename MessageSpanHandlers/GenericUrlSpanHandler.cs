@@ -24,7 +24,6 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
             "https?://(www\\.)?newgrounds.com/portal/view/\\d+",
             
-            
             // Steam
             "https?://(www\\.)?store\\.steampowered\\.com/app/(\\d+)",
             "https?://(www\\.)?forums\\.steampowered\\.com/forums/showthread\\.php\\?t=(\\d{7})",
@@ -37,8 +36,10 @@ namespace ChatBot.MessageSpanHandlers
 
             // Soundclound
             "https?://(www\\.)?(soundcloud.com|snd.cc)/.+",
+            
             // osu
             "https?://(www\\.)?(osu.ppy.sh)/(b|u|forum/t|s)/([a-zA-Z0-9_-]+)",
+            
             // imgur
             "https?://(www\\.)?(imgur\\.com)/gallery/([a-zA-Z0-9_-]+)",
             "https?://(www\\.)?(imgur\\.com)/a/([a-zA-Z0-9_-]+)"
