@@ -61,7 +61,6 @@
     <Compile Include="ChatFilterDialog.Designer.cs">
       <DependentUpon>ChatFilterDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandHandlers\OsuCommandHandler.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandDispatcher.cs" />
     <Compile Include="CommandHandlers\DefinitionCommandHandler.cs" />
