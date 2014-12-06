@@ -129,11 +129,13 @@ namespace ChatBot
                 this.Skype.Attach();
                 this.AttachedToSkype = true;
 
+
+
                 this.Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
                 {
                     try
                     {
-                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent)
+                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent || status == TChatMessageStatus.cmsSending)
                         {
                             if (!this.ChatFilter.ChatPassesFilter(message.Chat)) { return; }
                             if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000) { return; }
