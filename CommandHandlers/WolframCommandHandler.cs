@@ -26,7 +26,7 @@ namespace ChatBot.CommandHandlers
             }
             else
             {
-                messageSink("Some kind of error happened. Or Query took to long!");
+                messageSink("Some kind of error happened. Or Query took too long!");
             }
         }
     }
