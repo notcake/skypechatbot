@@ -107,6 +107,7 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "https://twitter.com/garrynewman/status/360042767461789698");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "3000€");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "£20");
+            // this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!w asdfasdf");
 
             this.ConnectToSkype();
         }
@@ -128,8 +129,6 @@ namespace ChatBot
             {
                 this.Skype.Attach();
                 this.AttachedToSkype = true;
-
-
 
                 this.Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
                 {

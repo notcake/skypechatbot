@@ -35,8 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Eka.Web">
-      <HintPath>..\Eka#.Web\bin\Debug\Eka.Web.dll</HintPath>
+    <Reference Include="Eka.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eka.web\bin\Debug\Eka.Web.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -61,6 +62,7 @@
     <Compile Include="ChatFilterDialog.Designer.cs">
       <DependentUpon>ChatFilterDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandHandlers\WolframCommandHandler.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandDispatcher.cs" />
     <Compile Include="CommandHandlers\DefinitionCommandHandler.cs" />
@@ -98,9 +100,11 @@
     <Compile Include="MessageSpanHandlers\YouTubeUrlSpanHandler.cs" />
     <EmbeddedResource Include="ChatFilterDialog.resx">
       <DependentUpon>ChatFilterDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -113,6 +117,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
