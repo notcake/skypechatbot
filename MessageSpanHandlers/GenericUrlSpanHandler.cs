@@ -32,9 +32,6 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?steamcommunity\\.com/discussions/forum/([0-9/]+)",
             "https?://(www\\.)?steamcommunity\\.com/(app/\\d+|groups/[a-zA-Z0-9_-]+|workshop/filedetails)(/discussions?/\\d+/\\d+|[a-zA-Z0-9_-]+)",
             "https?://(www\\.)?steamcommunity\\.com/(games|app)/\\d+/announcements(/detail/\\d+)?",
-
-            // Soundclound
-            "https?://(www\\.)?(soundcloud.com|snd.cc)/.+",
             
             // osu
             "https?://(www\\.)?(osu.ppy.sh)/(b|u|forum/t|s)/([a-zA-Z0-9_-]+)",
