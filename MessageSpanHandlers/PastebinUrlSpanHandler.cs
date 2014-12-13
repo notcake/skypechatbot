@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Eka.Web.Pastebin;
 using System.Text.RegularExpressions;
-using Eka.Web.MusicBrainz;
-using Eka.Web.Pastebin;
-using Eka.Web.Twitter;
-using Eka.Web.Wikipedia;
-using Eka.Web.YouTube;
 
 namespace ChatBot.MessageSpanHandlers
 {

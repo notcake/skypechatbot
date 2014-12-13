@@ -1,13 +1,12 @@
-﻿using System;
+﻿using ChatBot.MessageSpanHandlers;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using ChatBot.MessageSpanHandlers;
 
 namespace ChatBot
 {
     public delegate void ActionSpanSink(Match match, string data);
+
     public delegate void MessageSink(string messageSink);
 
     public class MessageHandler

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace ChatBot.Commands
@@ -22,7 +21,7 @@ namespace ChatBot.Commands
             // quoted-argument   := "([^"]|\.)*"
             // whitespace        := [ \t\r\n]*
 
-            this.Command  = command;
+            this.Command = command;
             this.Position = 0;
 
             List<string> arguments = new List<string>();
@@ -86,13 +85,13 @@ namespace ChatBot.Commands
                     {
                         case '\\':
                         case '\"': argument.Append(this.AcceptAny()); break;
-                        case ' ' :
+                        case ' ':
                         case '\r':
                         case '\n':
                         case '\t': argument.Append(this.AcceptAny()); break;
-                        case 'r' : argument.Append('\r');             break;
-                        case 'n' : argument.Append('\n');             break;
-                        case 't' : argument.Append('\t');             break;
+                        case 'r': argument.Append('\r'); break;
+                        case 'n': argument.Append('\n'); break;
+                        case 't': argument.Append('\t'); break;
                         default:
                             argument.Append('\\');
                             argument.Append(this.AcceptAny());
@@ -130,13 +129,13 @@ namespace ChatBot.Commands
                     {
                         case '\\':
                         case '\"': argument.Append(this.AcceptAny()); break;
-                        case ' ' :
+                        case ' ':
                         case '\r':
                         case '\n':
                         case '\t': argument.Append(this.AcceptAny()); break;
-                        case 'r' : argument.Append('\r');             break;
-                        case 'n' : argument.Append('\n');             break;
-                        case 't' : argument.Append('\t');             break;
+                        case 'r': argument.Append('\r'); break;
+                        case 'n': argument.Append('\n'); break;
+                        case 't': argument.Append('\t'); break;
                         default:
                             argument.Append('\\');
                             argument.Append(this.AcceptAny());

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ChatBot.Commands
 {
     public class Command
     {
         public string FullCommand { get; protected set; }
+
         public string FullArguments { get; protected set; }
 
         public string Name { get; protected set; }
+
         private List<string> arguments = new List<string>();
 
         public Command(string fullCommand)

@@ -63,8 +63,7 @@
       <DependentUpon>ChatFilterDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandHandlers\WolframCommandHandler.cs" />
-    <Compile Include="Commands\Command.cs" />
-    <Compile Include="Commands\CommandDispatcher.cs" />
+    <Compile Include="Commands\Command1.cs" />
     <Compile Include="CommandHandlers\DefinitionCommandHandler.cs" />
     <Compile Include="CommandHandlers\EchoCommandHandler.cs" />
     <Compile Include="CommandHandlers\EvalCommandHandler.cs" />
@@ -76,7 +75,8 @@
     <Compile Include="CommandHandlers\PingCommandHandler.cs" />
     <Compile Include="CommandHandlers\StreamCommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
-    <Compile Include="Commands\CommandParser.cs" />
+    <Compile Include="Commands\CommandDispatcher1.cs" />
+    <Compile Include="Commands\CommandParser1.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MessageSpanHandlers\CurrencySpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\GenericUrlSpanHandler.cs" />

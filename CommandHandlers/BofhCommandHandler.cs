@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ChatBot.Commands;
+using System;
 using System.Linq;
-using System.Text;
-using ChatBot.Commands;
 
 namespace ChatBot.CommandHandlers
 {
@@ -10,7 +8,7 @@ namespace ChatBot.CommandHandlers
     {
         private Random rnd = new Random();
         private string[] Excuses = Properties.Resources.bofh_excuses.Split('\n');
-        
+
         public string Command
         {
             get { return "bofh"; }
@@ -21,7 +19,7 @@ namespace ChatBot.CommandHandlers
             int r = rnd.Next(Excuses.Count());
             return Excuses[r];
         }
-        
+
         public void Handle(MessageSink messageSink, Command command)
         {
             messageSink(GetRandomExcuse());

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ChatBot.Commands;
+﻿using ChatBot.Commands;
 
 namespace ChatBot.CommandHandlers
 {

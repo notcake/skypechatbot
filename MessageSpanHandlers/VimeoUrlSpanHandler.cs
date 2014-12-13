@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Eka.Web.Vimeo;
 using System.Text.RegularExpressions;
-using Eka.Web.MusicBrainz;
-using Eka.Web.Wikipedia;
-using Eka.Web.Vimeo;
 
 namespace ChatBot.MessageSpanHandlers
 {
@@ -30,7 +24,7 @@ namespace ChatBot.MessageSpanHandlers
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
             string videoId = actionSpan.Data;
-            
+
             VideoInfo videoInfo = new VideoInfo(ulong.Parse(videoId));
 
             string formattedDuration = null;

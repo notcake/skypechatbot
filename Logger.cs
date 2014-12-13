@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ChatBot
+﻿namespace ChatBot
 {
     public class Logger
     {
         public delegate void MessageLoggedHandler(string message);
+
         public event MessageLoggedHandler MessageLogged;
 
         public Logger()

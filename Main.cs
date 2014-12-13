@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Windows.Forms;
-using System.Xml;
-using ChatBot.CommandHandlers;
+﻿using ChatBot.CommandHandlers;
 using ChatBot.Commands;
 using ChatBot.MessageSpanHandlers;
 using SKYPE4COMLib;
+using System;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace ChatBot
 {
@@ -199,6 +189,7 @@ namespace ChatBot
         }
 
         #region Toolbar
+
         private void ConnectToSkypeButton_Click(object sender, EventArgs e)
         {
             this.ConnectToSkype();
@@ -208,6 +199,7 @@ namespace ChatBot
         {
             new ChatFilterDialog(this.Skype, this.ChatFilter).ShowDialog();
         }
-        #endregion
+
+        #endregion Toolbar
     }
 }

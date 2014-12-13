@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using ChatBot.Commands;
+﻿using ChatBot.Commands;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Net;
 
 namespace ChatBot.CommandHandlers
 {

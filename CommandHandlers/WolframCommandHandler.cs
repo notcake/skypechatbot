@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using ChatBot.Commands;
+﻿using ChatBot.Commands;
 using Eka.Web.Wolfram;
 
 namespace ChatBot.CommandHandlers

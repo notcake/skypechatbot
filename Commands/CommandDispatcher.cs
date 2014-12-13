@@ -1,9 +1,5 @@
-﻿using System;
+﻿using ChatBot.CommandHandlers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using ChatBot.CommandHandlers;
 
 namespace ChatBot.Commands
 {

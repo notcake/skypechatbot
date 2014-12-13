@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Eka.Web.Amazon;
 using System.Text.RegularExpressions;
-using Eka.Web.Amazon;
 
 namespace ChatBot.MessageSpanHandlers
 {

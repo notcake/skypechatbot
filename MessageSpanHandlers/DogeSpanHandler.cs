@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Eka.Web.Thesaurus;
+using System;
 using System.Text.RegularExpressions;
-using Eka.Web.Thesaurus;
 
 namespace ChatBot.MessageSpanHandlers
 {

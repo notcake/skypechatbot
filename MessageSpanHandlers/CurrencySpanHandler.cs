@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Eka.Web.Google;
 using System.Text.RegularExpressions;
-using Eka.Web.Google;
 
 namespace ChatBot.MessageSpanHandlers
 {
