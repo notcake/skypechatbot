@@ -29,7 +29,9 @@ namespace ChatBot.MessageSpanHandlers
             Tweet tweet = new Tweet(tweetId);
             if (!tweet.Valid) { return; }
 
-            messageSink("Twitter: " + username + ": " + tweet.Text + "\n        Posted: " + tweet.Date.ToString("dd MMMM yyyy"));
+            string ttext = Regex.Replace(tweet.Text, "(pic\\.twitter\\.com/[a-zA-Z0-9_]+)", "http://$1");
+
+            messageSink("Twitter: " + username + ": " + ttext + "\n        Posted: " + tweet.Date.ToString("dd MMMM yyyy"));
         }
     }
 }

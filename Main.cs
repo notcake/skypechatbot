@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace ChatBot
 {
@@ -95,6 +96,7 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://goo.gl/jmzTY");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "http://vimeo.com/61930364#");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "https://twitter.com/garrynewman/status/360042767461789698");
+            // this.MessageHandler.HandleMessage(x => Debug.Print(x), "https://twitter.com/thronecast/status/548132192988442624/photo/1");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "3000€");
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "£20");
             // this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!w asdfasdf");
