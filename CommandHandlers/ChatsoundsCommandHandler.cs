@@ -19,7 +19,14 @@ namespace ChatBot.CommandHandlers
 
         public void Handle(MessageSink messageSink, Command command)
         {
-            messageSink("[CS] " + GetLink(command.FullArguments));
+            if (command.FullArguments == "")
+            {
+                messageSink("[CS] http://cs.3kv.in/");
+            }
+            else
+            {
+                messageSink("[CS] " + GetLink(command.FullArguments));
+            }
         }
     }
 }
