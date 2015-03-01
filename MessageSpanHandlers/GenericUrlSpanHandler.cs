@@ -9,6 +9,7 @@ namespace ChatBot.MessageSpanHandlers
         private string[] Urls = new string[]
         {
             "https?://(www\\.)?xkcd\\.com(/\\d+)?/?",
+            "https?://(www\\.)?facepunch\\.com/showthread\\.php\\?([^ ]+)?t=(\\d{7})",
             "https?://(www\\.)?facepunch\\.com/member\\.php\\?([^ ]+)?u=\\d+",
             "https?://(www\\.|pay\\.)?reddit\\.com/[a-zA-Z0-9/_]+",
             "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
