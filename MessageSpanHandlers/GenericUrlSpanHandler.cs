@@ -12,7 +12,7 @@ namespace ChatBot.MessageSpanHandlers
             "https?://(www\\.)?facepunch\\.com/showthread\\.php\\?([^ ]+)?t=(\\d{7})",
             "https?://(www\\.)?facepunch\\.com/member\\.php\\?([^ ]+)?u=\\d+",
             "https?://(www\\.|pay\\.)?reddit\\.com/[a-zA-Z0-9/_]+",
-            "https?://(www\\.)?bbc\\.co\\.uk/news/.+",
+            "https?://(www\\.)?(m\\.)?bbc(\\.co\\.uk)?(\\.com)?/news/.+",
             "https?://(www\\.)?newgrounds.com/portal/view/\\d+",
 
             // Steam
