@@ -31,9 +31,6 @@ Thumbs.db
 *.log
 *.bat
 *.php
-eka.web/
-bin/Release/Newtonsoft.Json.xml
-bin/Debug/Newtonsoft.Json.xml
 
 
 ###################### Stuff from https://github.com/github/gitignore ######################
