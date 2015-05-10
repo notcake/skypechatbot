@@ -31,7 +31,10 @@ namespace ChatBot.MessageSpanHandlers
 
             // imgur
             "https?://(www\\.)?(imgur\\.com)/gallery/([a-zA-Z0-9_-]+)",
-            "https?://(www\\.)?(imgur\\.com)/a/([a-zA-Z0-9_-]+)"
+            "https?://(www\\.)?(imgur\\.com)/a/([a-zA-Z0-9_-]+)",
+
+            // youtube because noone wants to upgrade to v3 atm
+            "https?://(www\\.)?youtu(?:\\.be|be\\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
