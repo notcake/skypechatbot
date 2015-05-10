@@ -3,7 +3,7 @@
 ### How do set it up? ###
 
 * Get [Visual studio](visualstudio.com) or similar.
-* **Clone the [eka.web](https://github.com/notcake/skypechatbot) repo since it depends on it.**
+* **Clone the [eka.web](https://github.com/notcake/eka.web) repo since it depends on it.**
 * Build the Solution
 * Run it
 
