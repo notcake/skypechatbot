@@ -30,7 +30,6 @@ Thumbs.db
 .htaccess
 *.log
 *.bat
-*.txt
 *.php
 eka.web/
 bin/Release/Newtonsoft.Json.xml
