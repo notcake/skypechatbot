@@ -59,7 +59,7 @@ namespace ChatBot.Properties {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die clock speed
         ///solar flares
@@ -80,12 +80,8 @@ namespace ChatBot.Properties {
         ///fat electrons in the lines
         ///ex [Rest der Zeichenfolge wurde abgeschnitten]&quot;; ähnelt.
         /// </summary>
-        internal static string bofh_excuses {
-            get {
-                return ResourceManager.GetString("bofh_excuses", resourceCulture);
-            }
-        }
-        
+        internal static string bofh_excuses => ResourceManager.GetString("bofh_excuses", resourceCulture);
+
         /// <summary>
         ///   Sucht eine lokalisierte Ressource vom Typ System.Drawing.Bitmap.
         /// </summary>

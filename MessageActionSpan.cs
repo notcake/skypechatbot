@@ -1,25 +1,22 @@
-﻿using ChatBot.MessageSpanHandlers;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using ChatBot.MessageSpanHandlers;
 
 namespace ChatBot
 {
     public class MessageActionSpan
     {
-        public uint Position { get; protected set; }
-
-        public Match Match { get; protected set; }
-
-        public string Data { get; protected set; }
-
-        public IMessageSpanHandler Handler { get; protected set; }
-
         public MessageActionSpan(Match match, string data, IMessageSpanHandler handler)
         {
-            this.Position = (uint)match.Index;
-            this.Match = match;
-            this.Data = data;
+            Position = (uint) match.Index;
+            Match = match;
+            Data = data;
 
-            this.Handler = handler;
+            Handler = handler;
         }
+
+        public uint Position { get; protected set; }
+        public Match Match { get; protected set; }
+        public string Data { get; protected set; }
+        public IMessageSpanHandler Handler { get; protected set; }
     }
 }

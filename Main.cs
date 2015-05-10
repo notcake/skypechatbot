@@ -1,39 +1,42 @@
-﻿using ChatBot.CommandHandlers;
-using ChatBot.Commands;
-using ChatBot.MessageSpanHandlers;
-using SKYPE4COMLib;
-using System;
-using System.Reflection;
+﻿using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
-using System.Diagnostics;
+using ChatBot.CommandHandlers;
+using ChatBot.Commands;
+using ChatBot.MessageSpanHandlers;
+using SKYPE4COMLib;
+using Application = System.Windows.Forms.Application;
 
 namespace ChatBot
 {
     public partial class Main : Form
     {
-        private Skype Skype = null;
-        private bool AttachedToSkype = false;
+        private static readonly char[] randomZeroWidthCharacters =
+        {
+            (char) 0x200B,
+            (char) 0x200C,
+            (char) 0x200D,
+            (char) 0xFEFF
+        };
 
-        private ChatFilter ChatFilter = new ChatFilter();
-
+        private readonly ChatFilter ChatFilter = new ChatFilter();
+        private readonly CommandDispatcher CommandDispatcher;
+        private readonly Logger Logger;
+        private readonly MessageHandler MessageHandler;
+        private readonly Skype Skype;
+        private bool AttachedToSkype;
         private DateTime LastResponseTime = DateTime.Now;
-
-        private Logger Logger;
-
-        private CommandDispatcher CommandDispatcher;
-        private MessageHandler MessageHandler;
 
         public Main()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Logger = new Logger();
-            this.CommandDispatcher = new CommandDispatcher(this.Logger);
-            this.MessageHandler = new MessageHandler(this.Logger);
+            Logger = new Logger();
+            CommandDispatcher = new CommandDispatcher(Logger);
+            MessageHandler = new MessageHandler(Logger);
 
-            this.Logger.MessageLogged += delegate(string message)
+            Logger.MessageLogged += delegate(string message)
             {
                 if (this.Log.TextLength > 0)
                 {
@@ -43,45 +46,58 @@ namespace ChatBot
                 this.Log.ScrollToCaret();
             };
 
-            System.Windows.Forms.Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
-            {
-                this.Logger.Log("Unhandled Exception: " + e.Exception.ToString());
-            };
+            Application.ThreadException +=
+                delegate(object sender, ThreadExceptionEventArgs e)
+                {
+                    this.Logger.Log("Unhandled Exception: " + e.Exception);
+                };
 
-            this.NotifyIcon.Icon = this.Icon;
+            NotifyIcon.Icon = Icon;
 
             // Command and Message Handlers
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                foreach (Type type in assembly.GetTypes())
+                foreach (var type in assembly.GetTypes())
                 {
-                    if (!type.IsClass) { continue; }
-                    if (type.IsAbstract) { continue; }
+                    if (!type.IsClass)
+                    {
+                        continue;
+                    }
+                    if (type.IsAbstract)
+                    {
+                        continue;
+                    }
 
                     // Command Handlers
-                    if (typeof(ICommandHandler).IsAssignableFrom(type))
+                    if (typeof (ICommandHandler).IsAssignableFrom(type))
                     {
-                        ConstructorInfo constructorInfo = type.GetConstructor(new Type[0] { });
-                        if (constructorInfo == null) { continue; }
+                        var constructorInfo = type.GetConstructor(new Type[0] {});
+                        if (constructorInfo == null)
+                        {
+                            continue;
+                        }
 
-                        object commandHandler = constructorInfo.Invoke(null);
-                        this.CommandDispatcher.AddCommandHandler((ICommandHandler)commandHandler);
+                        var commandHandler = constructorInfo.Invoke(null);
+                        CommandDispatcher.AddCommandHandler((ICommandHandler) commandHandler);
                     }
 
                     // Message Handlers
-                    if (typeof(IMessageSpanHandler).IsAssignableFrom(type))
+                    if (typeof (IMessageSpanHandler).IsAssignableFrom(type))
                     {
-                        ConstructorInfo constructorInfo = type.GetConstructor(new Type[0] { });
-                        if (constructorInfo == null) { continue; }
+                        var constructorInfo = type.GetConstructor(new Type[0] {});
+                        if (constructorInfo == null)
+                        {
+                            continue;
+                        }
 
-                        object messageSpanHandler = constructorInfo.Invoke(null);
-                        this.MessageHandler.AddSpanHandler((IMessageSpanHandler)messageSpanHandler);
+                        var messageSpanHandler = constructorInfo.Invoke(null);
+                        MessageHandler.AddSpanHandler((IMessageSpanHandler) messageSpanHandler);
                     }
                 }
             }
 
             // Skype
-            this.Skype = new SKYPE4COMLib.Skype();
+            Skype = new Skype();
 
             if (!Skype.Client.IsRunning)
             {
@@ -101,35 +117,38 @@ namespace ChatBot
             // this.MessageHandler.HandleMessage(x => Debug.Print(x), "£20");
             // this.CommandDispatcher.HandleMessage(x => Debug.Print(x), "!w asdfasdf");
 
-            this.ConnectToSkype();
+            ConnectToSkype();
         }
-
-        private static char[] randomZeroWidthCharacters = {
-                                                              (char)0x200B,
-                                                              (char)0x200C,
-                                                              (char)0x200D,
-                                                              (char)0xFEFF
-                                                          };
 
         private void ConnectToSkype()
         {
-            if (this.AttachedToSkype) { return; }
+            if (AttachedToSkype)
+            {
+                return;
+            }
 
-            this.ConnectToSkypeButton.Enabled = false;
+            ConnectToSkypeButton.Enabled = false;
 
             try
             {
-                this.Skype.Attach();
-                this.AttachedToSkype = true;
+                Skype.Attach();
+                AttachedToSkype = true;
 
-                this.Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
+                Skype.MessageStatus += delegate(ChatMessage message, TChatMessageStatus status)
                 {
                     try
                     {
-                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent || status == TChatMessageStatus.cmsSending)
+                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent ||
+                            status == TChatMessageStatus.cmsSending)
                         {
-                            if (!this.ChatFilter.ChatPassesFilter(message.Chat)) { return; }
-                            if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000) { return; }
+                            if (!this.ChatFilter.ChatPassesFilter(message.Chat))
+                            {
+                                return;
+                            }
+                            if ((DateTime.Now - this.LastResponseTime).TotalMilliseconds < 1000)
+                            {
+                                return;
+                            }
 
                             MessageSink messageSink = x =>
                             {
@@ -138,8 +157,10 @@ namespace ChatBot
 
                                 if (x.Length > 0)
                                 {
-                                    char firstCharacter = x[0];
-                                    x = firstCharacter.ToString() + Main.randomZeroWidthCharacters[new Random().Next(Main.randomZeroWidthCharacters.Length)] + x.Substring(1);
+                                    var firstCharacter = x[0];
+                                    x = firstCharacter.ToString() +
+                                        randomZeroWidthCharacters[new Random().Next(randomZeroWidthCharacters.Length)] +
+                                        x.Substring(1);
                                 }
 
                                 message.Chat.SendMessage(x);
@@ -154,52 +175,52 @@ namespace ChatBot
                     }
                     catch (Exception e)
                     {
-                        this.Logger.Log("Unhandled Exception: " + e.ToString());
+                        this.Logger.Log("Unhandled Exception: " + e);
                     }
                 };
             }
             catch (COMException)
             {
-                this.Logger.Log("Failed to attach to Skype.");
-                this.ConnectToSkypeButton.Enabled = true;
+                Logger.Log("Failed to attach to Skype.");
+                ConnectToSkypeButton.Enabled = true;
             }
         }
 
         private void Main_Resize(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized)
             {
-                this.Visible = false;
+                Visible = false;
             }
         }
 
         private void NotifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            this.Visible = true;
-            this.BringToFront();
+            Visible = true;
+            BringToFront();
         }
 
         private void ShowNotifyMenuItem_Click(object sender, EventArgs e)
         {
-            this.Visible = true;
-            this.BringToFront();
+            Visible = true;
+            BringToFront();
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         #region Toolbar
 
         private void ConnectToSkypeButton_Click(object sender, EventArgs e)
         {
-            this.ConnectToSkype();
+            ConnectToSkype();
         }
 
         private void ChatFilterButton_Click(object sender, EventArgs e)
         {
-            new ChatFilterDialog(this.Skype, this.ChatFilter).ShowDialog();
+            new ChatFilterDialog(Skype, ChatFilter).ShowDialog();
         }
 
         #endregion Toolbar

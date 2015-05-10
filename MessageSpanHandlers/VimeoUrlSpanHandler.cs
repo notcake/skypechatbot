@@ -1,18 +1,18 @@
-﻿using Eka.Web.Vimeo;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Eka.Web.Vimeo;
 
 namespace ChatBot.MessageSpanHandlers
 {
     public class VimeoUrlSpanHandler : IMessageSpanHandler
     {
-        private string[] VimeoUrls = new string[]
+        private readonly string[] VimeoUrls =
         {
             "https?://(www\\.)?vimeo\\.com/([0-9]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (string vimeoUrlPattern in this.VimeoUrls)
+            foreach (var vimeoUrlPattern in VimeoUrls)
             {
                 foreach (Match match in new Regex(vimeoUrlPattern, RegexOptions.IgnoreCase).Matches(message))
                 {
@@ -23,21 +23,24 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            string videoId = actionSpan.Data;
+            var videoId = actionSpan.Data;
 
-            VideoInfo videoInfo = new VideoInfo(ulong.Parse(videoId));
+            var videoInfo = new VideoInfo(ulong.Parse(videoId));
 
             string formattedDuration = null;
             if (videoInfo.Duration.TotalHours < 1)
             {
-                formattedDuration = videoInfo.Duration.Minutes.ToString("D2") + ":" + videoInfo.Duration.Seconds.ToString("D2");
+                formattedDuration = videoInfo.Duration.Minutes.ToString("D2") + ":" +
+                                    videoInfo.Duration.Seconds.ToString("D2");
             }
             else
             {
-                formattedDuration = ((int)videoInfo.Duration.TotalHours).ToString("D2") + ":" + videoInfo.Duration.Minutes.ToString("D2") + ":" + videoInfo.Duration.Seconds.ToString("D2");
+                formattedDuration = ((int) videoInfo.Duration.TotalHours).ToString("D2") + ":" +
+                                    videoInfo.Duration.Minutes.ToString("D2") + ":" +
+                                    videoInfo.Duration.Seconds.ToString("D2");
             }
 
-            string videoInfoMessage = "Vimeo: " + videoInfo.Title + " [" + formattedDuration + "]";
+            var videoInfoMessage = "Vimeo: " + videoInfo.Title + " [" + formattedDuration + "]";
 
             messageSink(videoInfoMessage);
         }

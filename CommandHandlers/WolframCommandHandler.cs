@@ -5,15 +5,15 @@ namespace ChatBot.CommandHandlers
 {
     public class WolframCommandHandler : ICommandHandler
     {
-        public string Command
-        {
-            get { return "w"; }
-        }
+        public string Command => "w";
 
         public void Handle(MessageSink messageSink, Command command)
         {
-            if (command.FullArguments == "") { return; }
-            Wolfram response = new Wolfram(command.FullArguments);
+            if (command.FullArguments == "")
+            {
+                return;
+            }
+            var response = new Wolfram(command.FullArguments);
 
             if (response.Success)
             {

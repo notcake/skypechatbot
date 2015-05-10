@@ -1,7 +1,7 @@
-﻿using ChatBot.MessageSpanHandlers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ChatBot.MessageSpanHandlers;
 
 namespace ChatBot
 {
@@ -11,38 +11,38 @@ namespace ChatBot
 
     public class MessageHandler
     {
-        private Logger Logger;
-
-        private List<IMessageSpanHandler> SpanHandlers = new List<IMessageSpanHandler>();
+        private readonly Logger Logger;
+        private readonly List<IMessageSpanHandler> SpanHandlers = new List<IMessageSpanHandler>();
 
         public MessageHandler(Logger logger)
         {
-            this.Logger = logger;
+            Logger = logger;
         }
 
         public void AddSpanHandler(IMessageSpanHandler messageSpanHandler)
         {
-            this.SpanHandlers.Add(messageSpanHandler);
+            SpanHandlers.Add(messageSpanHandler);
 
-            this.Logger.Log("MessageSpanHandler " + messageSpanHandler.GetType().FullName + " registered.");
+            Logger.Log("MessageSpanHandler " + messageSpanHandler.GetType().FullName + " registered.");
         }
 
         public void HandleMessage(MessageSink messageSink, string message)
         {
-            List<MessageActionSpan> actionSpans = new List<MessageActionSpan>();
+            var actionSpans = new List<MessageActionSpan>();
 
-            foreach (IMessageSpanHandler messageSpanHandler in this.SpanHandlers)
+            foreach (var messageSpanHandler in SpanHandlers)
             {
-                messageSpanHandler.IdentifyActionSpans((x, y) => actionSpans.Add(new MessageActionSpan(x, y, messageSpanHandler)), message);
+                messageSpanHandler.IdentifyActionSpans(
+                    (x, y) => actionSpans.Add(new MessageActionSpan(x, y, messageSpanHandler)), message);
             }
 
             if (actionSpans.Count > 0)
             {
-                this.Logger.Log("Handling message:");
-                this.Logger.Log("\t" + actionSpans.Count + " action span(s).");
+                Logger.Log("Handling message:");
+                Logger.Log("\t" + actionSpans.Count + " action span(s).");
             }
 
-            foreach (MessageActionSpan messageActionSpan in actionSpans.OrderBy(x => x.Position))
+            foreach (var messageActionSpan in actionSpans.OrderBy(x => x.Position))
             {
                 messageActionSpan.Handler.HandleSpan(messageSink, messageActionSpan);
             }

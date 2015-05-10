@@ -4,10 +4,7 @@ namespace ChatBot.CommandHandlers
 {
     public class PingCommandHandler : ICommandHandler
     {
-        public string Command
-        {
-            get { return "ping"; }
-        }
+        public string Command => "ping";
 
         public void Handle(MessageSink messageSink, Command command)
         {

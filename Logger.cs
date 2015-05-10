@@ -6,15 +6,11 @@
 
         public event MessageLoggedHandler MessageLogged;
 
-        public Logger()
-        {
-        }
-
         public void Log(string message)
         {
-            if (this.MessageLogged != null)
+            if (MessageLogged != null)
             {
-                this.MessageLogged(message);
+                MessageLogged(message);
             }
         }
     }

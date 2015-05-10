@@ -4,10 +4,7 @@ namespace ChatBot.CommandHandlers
 {
     public class EchoCommandHandler : ICommandHandler
     {
-        public string Command
-        {
-            get { return "echo"; }
-        }
+        public string Command => "echo";
 
         public void Handle(MessageSink messageSink, Command command)
         {

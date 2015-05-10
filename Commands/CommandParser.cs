@@ -6,12 +6,10 @@ namespace ChatBot.Commands
 {
     public class CommandParser
     {
-        private int Position;
         private string Command;
+        private int Position;
 
-        public CommandParser()
-        {
-        }
+        private bool IsOutOfInput => Position >= Command.Length;
 
         public Tuple<string, string[], string> Parse(string command)
         {
@@ -21,27 +19,30 @@ namespace ChatBot.Commands
             // quoted-argument   := "([^"]|\.)*"
             // whitespace        := [ \t\r\n]*
 
-            this.Command = command;
-            this.Position = 0;
+            Command = command;
+            Position = 0;
 
-            List<string> arguments = new List<string>();
-            string fullArguments = "";
+            var arguments = new List<string>();
+            var fullArguments = "";
 
             while (true)
             {
-                this.Whitespace();
+                Whitespace();
 
                 if (arguments.Count == 1)
                 {
-                    fullArguments = this.Command.Substring(this.Position);
+                    fullArguments = Command.Substring(Position);
                 }
 
-                string argument = this.Argument();
-                if (argument == null) { break; }
+                var argument = Argument();
+                if (argument == null)
+                {
+                    break;
+                }
                 arguments.Add(argument);
             }
 
-            string commandName = "";
+            var commandName = "";
             if (arguments.Count > 0)
             {
                 commandName = arguments[0].Substring(1);
@@ -56,51 +57,74 @@ namespace ChatBot.Commands
             // unquoted-argument := ([^ \t"]|\.)+
             // quoted-argument   := "([^"]|\.)*"
 
-            if (this.IsOutOfInput) { return null; }
-
-            if (this.Peek() == '\"')
+            if (IsOutOfInput)
             {
-                return this.QuotedArgument();
+                return null;
             }
-            return this.UnquotedArgument();
+
+            if (Peek() == '\"')
+            {
+                return QuotedArgument();
+            }
+            return UnquotedArgument();
         }
 
         private string UnquotedArgument()
         {
             // unquoted-argument := ([^ \t"]|\.)+
 
-            if (this.IsOutOfInput) { return null; }
-
-            StringBuilder argument = new StringBuilder();
-
-            while (!this.IsOutOfInput &&
-                   !char.IsWhiteSpace(this.Peek()))
+            if (IsOutOfInput)
             {
-                if (this.Peek() == '\"') { break; }
-                if (this.Accept('\\'))
-                {
-                    if (this.IsOutOfInput) { argument.Append('\\'); break; }
+                return null;
+            }
 
-                    switch (this.Peek())
+            var argument = new StringBuilder();
+
+            while (!IsOutOfInput &&
+                   !char.IsWhiteSpace(Peek()))
+            {
+                if (Peek() == '\"')
+                {
+                    break;
+                }
+                if (Accept('\\'))
+                {
+                    if (IsOutOfInput)
+                    {
+                        argument.Append('\\');
+                        break;
+                    }
+
+                    switch (Peek())
                     {
                         case '\\':
-                        case '\"': argument.Append(this.AcceptAny()); break;
+                        case '\"':
+                            argument.Append(AcceptAny());
+                            break;
                         case ' ':
                         case '\r':
                         case '\n':
-                        case '\t': argument.Append(this.AcceptAny()); break;
-                        case 'r': argument.Append('\r'); break;
-                        case 'n': argument.Append('\n'); break;
-                        case 't': argument.Append('\t'); break;
+                        case '\t':
+                            argument.Append(AcceptAny());
+                            break;
+                        case 'r':
+                            argument.Append('\r');
+                            break;
+                        case 'n':
+                            argument.Append('\n');
+                            break;
+                        case 't':
+                            argument.Append('\t');
+                            break;
                         default:
                             argument.Append('\\');
-                            argument.Append(this.AcceptAny());
+                            argument.Append(AcceptAny());
                             break;
                     }
                 }
                 else
                 {
-                    argument.Append(this.AcceptAny());
+                    argument.Append(AcceptAny());
                 }
             }
 
@@ -111,40 +135,60 @@ namespace ChatBot.Commands
         {
             // quoted-argument := "([^"]|\.)*"
 
-            if (this.IsOutOfInput) { return null; }
+            if (IsOutOfInput)
+            {
+                return null;
+            }
 
             // "
-            if (!this.Accept('\"')) { return null; }
-
-            StringBuilder argument = new StringBuilder();
-
-            while (!this.IsOutOfInput &&
-                   !this.Accept('\"'))
+            if (!Accept('\"'))
             {
-                if (this.Accept('\\'))
-                {
-                    if (this.IsOutOfInput) { argument.Append('\\'); break; }
+                return null;
+            }
 
-                    switch (this.Peek())
+            var argument = new StringBuilder();
+
+            while (!IsOutOfInput &&
+                   !Accept('\"'))
+            {
+                if (Accept('\\'))
+                {
+                    if (IsOutOfInput)
+                    {
+                        argument.Append('\\');
+                        break;
+                    }
+
+                    switch (Peek())
                     {
                         case '\\':
-                        case '\"': argument.Append(this.AcceptAny()); break;
+                        case '\"':
+                            argument.Append(AcceptAny());
+                            break;
                         case ' ':
                         case '\r':
                         case '\n':
-                        case '\t': argument.Append(this.AcceptAny()); break;
-                        case 'r': argument.Append('\r'); break;
-                        case 'n': argument.Append('\n'); break;
-                        case 't': argument.Append('\t'); break;
+                        case '\t':
+                            argument.Append(AcceptAny());
+                            break;
+                        case 'r':
+                            argument.Append('\r');
+                            break;
+                        case 'n':
+                            argument.Append('\n');
+                            break;
+                        case 't':
+                            argument.Append('\t');
+                            break;
                         default:
                             argument.Append('\\');
-                            argument.Append(this.AcceptAny());
+                            argument.Append(AcceptAny());
                             break;
                     }
                 }
                 else
                 {
-                    argument.Append(this.AcceptAny());
+                    argument.Append(AcceptAny());
                 }
             }
 
@@ -156,43 +200,47 @@ namespace ChatBot.Commands
             // whitespace := [ \t\r\n]*
 
             // Nom all the whitespace
-            while (!this.IsOutOfInput &&
-                   char.IsWhiteSpace(this.Command[this.Position]))
+            while (!IsOutOfInput &&
+                   char.IsWhiteSpace(Command[Position]))
             {
-                this.Position++;
+                Position++;
             }
         }
 
         private bool Accept(char c)
         {
-            if (this.IsOutOfInput) { return false; }
-            if (this.Command[this.Position] != c) { return false; }
+            if (IsOutOfInput)
+            {
+                return false;
+            }
+            if (Command[Position] != c)
+            {
+                return false;
+            }
 
-            this.Position = this.Position + 1;
+            Position = Position + 1;
 
             return true;
         }
 
         private char AcceptAny()
         {
-            if (this.IsOutOfInput) { return '\0'; }
-            this.Position = this.Position + 1;
-            return this.Command[this.Position - 1];
+            if (IsOutOfInput)
+            {
+                return '\0';
+            }
+            Position = Position + 1;
+            return Command[Position - 1];
         }
 
         private char Peek()
         {
-            if (this.IsOutOfInput) { return '\0'; }
-
-            return this.Command[this.Position];
-        }
-
-        private bool IsOutOfInput
-        {
-            get
+            if (IsOutOfInput)
             {
-                return this.Position >= this.Command.Length;
+                return '\0';
             }
+
+            return Command[Position];
         }
     }
 }

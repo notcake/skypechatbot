@@ -6,7 +6,7 @@ namespace ChatBot.MessageSpanHandlers
 {
     public class GenericUrlSpanHandler : IMessageSpanHandler
     {
-        private string[] Urls = new string[]
+        private readonly string[] Urls =
         {
             "https?://(www\\.)?xkcd\\.com(/\\d+)?/?",
             "https?://(www\\.)?facepunch\\.com/showthread\\.php\\?([^ ]+)?t=(\\d{7})",
@@ -36,7 +36,7 @@ namespace ChatBot.MessageSpanHandlers
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (string urlPattern in this.Urls)
+            foreach (var urlPattern in Urls)
             {
                 foreach (Match match in new Regex(urlPattern, RegexOptions.IgnoreCase).Matches(message))
                 {
@@ -47,14 +47,20 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            string url = actionSpan.Data;
-            WebClient webClient = new WebClient();
+            var url = actionSpan.Data;
+            var webClient = new WebClient();
             webClient.Encoding = Encoding.UTF8;
-            string html = webClient.DownloadString(url);
-            if (html == null) { return; }
+            var html = webClient.DownloadString(url);
+            if (html == null)
+            {
+                return;
+            }
 
-            Match match = new Regex("<title>([^<]+)</title>", RegexOptions.IgnoreCase).Match(html);
-            if (match == null) { return; }
+            var match = new Regex("<title>([^<]+)</title>", RegexOptions.IgnoreCase).Match(html);
+            if (match == null)
+            {
+                return;
+            }
 
             messageSink(WebUtility.HtmlDecode(match.Groups[1].ToString()));
         }

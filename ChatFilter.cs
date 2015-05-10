@@ -1,33 +1,32 @@
-﻿using SKYPE4COMLib;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SKYPE4COMLib;
 
 namespace ChatBot
 {
     public class ChatFilter
     {
-        private HashSet<string> ExcludedChatBlobs = new HashSet<string>();
+        private readonly HashSet<string> ExcludedChatBlobs = new HashSet<string>();
 
-        public ChatFilter()
-        {
-        }
-
-        public bool ChatPassesFilter(Chat chat)
-        {
-            return !this.ExcludedChatBlobs.Contains(chat.Blob);
-        }
+        public bool ChatPassesFilter(Chat chat) => !ExcludedChatBlobs.Contains(chat.Blob);
 
         public void ExcludeChat(Chat chat)
         {
-            if (this.ExcludedChatBlobs.Contains(chat.Blob)) { return; }
+            if (ExcludedChatBlobs.Contains(chat.Blob))
+            {
+                return;
+            }
 
-            this.ExcludedChatBlobs.Add(chat.Blob);
+            ExcludedChatBlobs.Add(chat.Blob);
         }
 
         public void IncludeChat(Chat chat)
         {
-            if (!this.ExcludedChatBlobs.Contains(chat.Blob)) { return; }
+            if (!ExcludedChatBlobs.Contains(chat.Blob))
+            {
+                return;
+            }
 
-            this.ExcludedChatBlobs.Remove(chat.Blob);
+            ExcludedChatBlobs.Remove(chat.Blob);
         }
     }
 }

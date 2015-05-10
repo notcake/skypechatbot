@@ -1,28 +1,26 @@
-﻿using ChatBot.Commands;
-using System;
+﻿using System;
 using System.Linq;
+using ChatBot.Commands;
+using ChatBot.Properties;
 
 namespace ChatBot.CommandHandlers
 {
     public class BofhCommandHandler : ICommandHandler
     {
-        private Random rnd = new Random();
-        private string[] Excuses = Properties.Resources.bofh_excuses.Split('\n');
+        private readonly string[] Excuses = Resources.bofh_excuses.Split('\n');
+        private readonly Random rnd = new Random();
 
-        public string Command
-        {
-            get { return "bofh"; }
-        }
-
-        public string GetRandomExcuse()
-        {
-            int r = rnd.Next(Excuses.Count());
-            return Excuses[r];
-        }
+        public string Command => "bofh";
 
         public void Handle(MessageSink messageSink, Command command)
         {
             messageSink(GetRandomExcuse());
+        }
+
+        public string GetRandomExcuse()
+        {
+            var r = rnd.Next(Excuses.Count());
+            return Excuses[r];
         }
     }
 }

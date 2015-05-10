@@ -5,14 +5,11 @@ namespace ChatBot.CommandHandlers
 {
     public class SloganCommandHandler : ICommandHandler
     {
-        public string Command
-        {
-            get { return "slogan"; }
-        }
+        public string Command => "slogan";
 
         public void Handle(MessageSink messageSink, Command command)
         {
-            Slogan slogan = new Slogan(command.FullArguments);
+            var slogan = new Slogan(command.FullArguments);
             if (slogan.Success)
                 messageSink(slogan.SloganText);
         }

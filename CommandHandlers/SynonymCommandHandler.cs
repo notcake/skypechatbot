@@ -5,19 +5,16 @@ namespace ChatBot.CommandHandlers
 {
     public class SynonymCommandHandler : ICommandHandler
     {
-        public string Command
-        {
-            get { return "synonym"; }
-        }
+        public string Command => "synonym";
 
         public void Handle(MessageSink messageSink, Command command)
         {
-            Thesaurus thesaurus = new Thesaurus(command.FullArguments);
-            string message = "Synonyms for '" + command.FullArguments + "': ";
+            var thesaurus = new Thesaurus(command.FullArguments);
+            var message = "Synonyms for '" + command.FullArguments + "': ";
 
             if (thesaurus.Success)
             {
-                foreach (string synonym in thesaurus.Synonyms)
+                foreach (var synonym in thesaurus.Synonyms)
                 {
                     message += synonym + ", ";
                 }

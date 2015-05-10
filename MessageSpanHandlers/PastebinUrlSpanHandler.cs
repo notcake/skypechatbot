@@ -1,11 +1,11 @@
-﻿using Eka.Web.Pastebin;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Eka.Web.Pastebin;
 
 namespace ChatBot.MessageSpanHandlers
 {
     public class PastebinUrlSpanHandler : IMessageSpanHandler
     {
-        private string[] PastebinUrls = new string[]
+        private readonly string[] PastebinUrls =
         {
             "https?://(www\\.)?pastebin\\.com/raw.php?i=([a-zA-Z0-9_]+)",
             "https?://(www\\.)?pastebin\\.com/([a-zA-Z0-9_]+)"
@@ -13,7 +13,7 @@ namespace ChatBot.MessageSpanHandlers
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (string pastebinUrlPattern in this.PastebinUrls)
+            foreach (var pastebinUrlPattern in PastebinUrls)
             {
                 foreach (Match match in new Regex(pastebinUrlPattern, RegexOptions.IgnoreCase).Matches(message))
                 {
@@ -24,23 +24,35 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            Paste paste = new Paste(actionSpan.Data);
+            var paste = new Paste(actionSpan.Data);
 
-            if (!paste.Exists) { return; }
-
-            string[] lines = paste.Data.Substring(0, 256).Split('\n');
-
-            string code = "";
-            uint lineCount = 0;
-            foreach (string line in lines)
+            if (!paste.Exists)
             {
-                if (line.Trim().Length == 0) { continue; }
+                return;
+            }
+
+            var lines = paste.Data.Substring(0, 256).Split('\n');
+
+            var code = "";
+            uint lineCount = 0;
+            foreach (var line in lines)
+            {
+                if (line.Trim().Length == 0)
+                {
+                    continue;
+                }
 
                 code = code + "\n        " + line.Replace("\t", "        ");
                 lineCount++;
 
-                if (lineCount >= 3) { break; }
-                if (code.Length > 256) { break; }
+                if (lineCount >= 3)
+                {
+                    break;
+                }
+                if (code.Length > 256)
+                {
+                    break;
+                }
             }
 
             messageSink("Pastebin:" + code);

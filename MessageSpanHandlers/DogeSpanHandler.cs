@@ -1,25 +1,25 @@
-﻿using Eka.Web.Thesaurus;
-using System;
+﻿using System;
 using System.Text.RegularExpressions;
+using Eka.Web.Thesaurus;
 
 namespace ChatBot.MessageSpanHandlers
 {
     public class DogeSpanHandler : IMessageSpanHandler
     {
-        private DateTime lastdoge = DateTime.Now;
-        private Random rnd = new Random();
-
-        private string[] DogeRegEx = new string[]
+        private readonly string[] DogeRegEx =
         {
             "so", "much", "very", "such"
         };
 
+        private readonly Random rnd = new Random();
+        private DateTime lastdoge = DateTime.Now;
+
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            string pattern_prefixes = "";
-            bool first = true;
+            var pattern_prefixes = "";
+            var first = true;
 
-            foreach (string prefix in DogeRegEx)
+            foreach (var prefix in DogeRegEx)
             {
                 if (first)
                     first = false;
@@ -28,7 +28,7 @@ namespace ChatBot.MessageSpanHandlers
                 pattern_prefixes += prefix;
             }
 
-            string pattern = "^(" + pattern_prefixes + ") ([a-zA-Z]+)$";
+            var pattern = "^(" + pattern_prefixes + ") ([a-zA-Z]+)$";
 
             foreach (Match match in new Regex(pattern, RegexOptions.IgnoreCase).Matches(message))
             {
@@ -40,21 +40,21 @@ namespace ChatBot.MessageSpanHandlers
         {
             if (DateTime.Now.Subtract(lastdoge).Seconds <= 10)
             {
-                string prefix = actionSpan.Match.Groups[1].ToString();
-                string word = actionSpan.Match.Groups[2].ToString();
+                var prefix = actionSpan.Match.Groups[1].ToString();
+                var word = actionSpan.Match.Groups[2].ToString();
 
-                Thesaurus thesaurus = new Thesaurus(word);
+                var thesaurus = new Thesaurus(word);
 
                 if (thesaurus.Success)
                 {
-                    string message = "";
+                    var message = "";
 
-                    foreach (string p in DogeRegEx)
+                    foreach (var p in DogeRegEx)
                     {
                         if (thesaurus.Synonyms.Count == 0) break;
                         if (p != prefix)
                         {
-                            int pos = rnd.Next(thesaurus.Synonyms.Count - 1);
+                            var pos = rnd.Next(thesaurus.Synonyms.Count - 1);
                             message += p + " " + thesaurus.Synonyms[pos] + "\n";
                             thesaurus.Synonyms.RemoveAt(pos);
                         }

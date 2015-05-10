@@ -1,18 +1,18 @@
-﻿using Eka.Web.Twitter;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Eka.Web.Twitter;
 
 namespace ChatBot.MessageSpanHandlers
 {
     public class TwitterUrlSpanHandler : IMessageSpanHandler
     {
-        private string[] TwitterUrls = new string[]
+        private readonly string[] TwitterUrls =
         {
             "https?://(www\\.)?twitter\\.com/([a-zA-Z0-9_]+)/status/([0-9]+)"
         };
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (string twitterUrlPattern in this.TwitterUrls)
+            foreach (var twitterUrlPattern in TwitterUrls)
             {
                 foreach (Match match in new Regex(twitterUrlPattern, RegexOptions.IgnoreCase).Matches(message))
                 {
@@ -23,15 +23,19 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            string username = actionSpan.Match.Groups[2].ToString();
-            ulong tweetId = ulong.Parse(actionSpan.Match.Groups[3].ToString());
+            var username = actionSpan.Match.Groups[2].ToString();
+            var tweetId = ulong.Parse(actionSpan.Match.Groups[3].ToString());
 
-            Tweet tweet = new Tweet(tweetId);
-            if (!tweet.Valid) { return; }
+            var tweet = new Tweet(tweetId);
+            if (!tweet.Valid)
+            {
+                return;
+            }
 
-            string ttext = Regex.Replace(tweet.Text, "(pic\\.twitter\\.com/[a-zA-Z0-9_]+)", "http://$1");
+            var ttext = Regex.Replace(tweet.Text, "(pic\\.twitter\\.com/[a-zA-Z0-9_]+)", "http://$1");
 
-            messageSink("Twitter: " + username + ": " + ttext + "\n        Posted: " + tweet.Date.ToString("dd MMMM yyyy"));
+            messageSink("Twitter: " + username + ": " + ttext + "\n        Posted: " +
+                        tweet.Date.ToString("dd MMMM yyyy"));
         }
     }
 }

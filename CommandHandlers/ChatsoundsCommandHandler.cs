@@ -1,21 +1,11 @@
+using System.Web;
 using ChatBot.Commands;
-using System;
 
 namespace ChatBot.CommandHandlers
 {
     public class ChatsoundsCommandHandler : ICommandHandler
     {
-        public static String GetLink(string expression)
-        {
-            String link = "http://cs.3kv.in/?s=";
-            link = link + System.Web.HttpUtility.UrlPathEncode(expression);
-            return link;
-        }
-
-        public string Command
-        {
-            get { return "cs"; }
-        }
+        public string Command => "cs";
 
         public void Handle(MessageSink messageSink, Command command)
         {
@@ -27,6 +17,13 @@ namespace ChatBot.CommandHandlers
             {
                 messageSink("[CS] " + GetLink(command.FullArguments));
             }
+        }
+
+        public static string GetLink(string expression)
+        {
+            var link = "http://cs.3kv.in/?s=";
+            link = link + HttpUtility.UrlPathEncode(expression);
+            return link;
         }
     }
 }

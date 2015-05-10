@@ -5,7 +5,7 @@ namespace ChatBot.MessageSpanHandlers
 {
     public class ShortenedUrlSpanHandler : IMessageSpanHandler
     {
-        private string[] UrlShorteners = new string[]
+        private readonly string[] UrlShorteners =
         {
             "https?://(www\\.)?goo.gl/([a-zA-Z0-9_\\-]+)",
             "https?://(www\\.)?redd.it/([a-zA-Z0-9_\\-]+)",
@@ -17,7 +17,7 @@ namespace ChatBot.MessageSpanHandlers
 
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (string urlPattern in this.UrlShorteners)
+            foreach (var urlPattern in UrlShorteners)
             {
                 foreach (Match match in new Regex(urlPattern, RegexOptions.IgnoreCase).Matches(message))
                 {
@@ -28,8 +28,8 @@ namespace ChatBot.MessageSpanHandlers
 
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
-            WebRequest httpRequest = WebRequest.Create(actionSpan.Data);
-            WebResponse httpResponse = httpRequest.GetResponse();
+            var httpRequest = WebRequest.Create(actionSpan.Data);
+            var httpResponse = httpRequest.GetResponse();
 
             messageSink("URL Redirect: " + httpResponse.ResponseUri.AbsoluteUri);
         }

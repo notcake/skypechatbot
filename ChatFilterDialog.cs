@@ -1,80 +1,80 @@
-﻿using ChatBot.Properties;
-using SKYPE4COMLib;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ChatBot.Properties;
+using SKYPE4COMLib;
 
 namespace ChatBot
 {
     public partial class ChatFilterDialog : Form
     {
-        private Skype Skype;
-        private ChatFilter ChatFilter;
-
-        private class ChatItem
-        {
-            public Chat Chat { get; protected set; }
-
-            public ChatItem(Chat chat)
-            {
-                this.Chat = chat;
-            }
-
-            public override string ToString()
-            {
-                string chatString = this.Chat.Topic;
-
-                if (chatString == "")
-                {
-                    chatString = this.Chat.FriendlyName;
-                }
-
-                return chatString;
-            }
-        }
+        private readonly ChatFilter ChatFilter;
+        private readonly Skype Skype;
 
         public ChatFilterDialog(Skype skype, ChatFilter chatFilter)
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.Icon = Icon.FromHandle(Resources.comments.GetHicon());
-            this.DialogResult = DialogResult.OK;
+            Icon = Icon.FromHandle(Resources.comments.GetHicon());
+            DialogResult = DialogResult.OK;
 
-            this.Skype = skype;
-            this.ChatFilter = chatFilter;
+            Skype = skype;
+            ChatFilter = chatFilter;
         }
 
         private void ChatFilterDialog_Load(object sender, EventArgs e)
         {
-            foreach (Chat chat in this.Skype.RecentChats)
+            foreach (Chat chat in Skype.RecentChats)
             {
-                this.ChatListBox.Items.Add(new ChatItem(chat), this.ChatFilter.ChatPassesFilter(chat));
+                ChatListBox.Items.Add(new ChatItem(chat), ChatFilter.ChatPassesFilter(chat));
             }
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < this.ChatListBox.Items.Count; i++)
+            for (var i = 0; i < ChatListBox.Items.Count; i++)
             {
-                Chat chat = ((ChatItem)this.ChatListBox.Items[i]).Chat;
-                bool itemChecked = this.ChatListBox.GetItemChecked(i);
+                var chat = ((ChatItem) ChatListBox.Items[i]).Chat;
+                var itemChecked = ChatListBox.GetItemChecked(i);
 
                 if (itemChecked)
                 {
-                    this.ChatFilter.IncludeChat(chat);
+                    ChatFilter.IncludeChat(chat);
                 }
                 else
                 {
-                    this.ChatFilter.ExcludeChat(chat);
+                    ChatFilter.ExcludeChat(chat);
                 }
             }
 
-            this.Close();
+            Close();
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
+        }
+
+        private class ChatItem
+        {
+            public ChatItem(Chat chat)
+            {
+                Chat = chat;
+            }
+
+            public Chat Chat { get; }
+
+            public override string ToString()
+            {
+                var chatString = Chat.Topic;
+
+                if (chatString == "")
+                {
+                    chatString = Chat.FriendlyName;
+                }
+
+                return chatString;
+            }
         }
     }
 }

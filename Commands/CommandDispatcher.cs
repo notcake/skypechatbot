@@ -1,30 +1,32 @@
-﻿using ChatBot.CommandHandlers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ChatBot.CommandHandlers;
 
 namespace ChatBot.Commands
 {
     public class CommandDispatcher
     {
-        private Logger Logger;
+        private readonly Dictionary<string, ICommandHandler> CommandHandlers = new Dictionary<string, ICommandHandler>();
+        private readonly Logger Logger;
 
-        private Dictionary<string, ICommandHandler> CommandHandlers = new Dictionary<string, ICommandHandler>();
-        private Dictionary<string, ICommandHandler> LowercaseCommandHandlers = new Dictionary<string, ICommandHandler>();
+        private readonly Dictionary<string, ICommandHandler> LowercaseCommandHandlers =
+            new Dictionary<string, ICommandHandler>();
 
         public CommandDispatcher(Logger logger)
         {
-            this.Logger = logger;
+            Logger = logger;
         }
 
         public void AddCommandHandler(ICommandHandler commandHandler)
         {
-            this.CommandHandlers.Add(commandHandler.Command, commandHandler);
+            CommandHandlers.Add(commandHandler.Command, commandHandler);
 
-            if (!this.LowercaseCommandHandlers.ContainsKey(commandHandler.Command.ToLower()))
+            if (!LowercaseCommandHandlers.ContainsKey(commandHandler.Command.ToLower()))
             {
-                this.LowercaseCommandHandlers.Add(commandHandler.Command.ToLower(), commandHandler);
+                LowercaseCommandHandlers.Add(commandHandler.Command.ToLower(), commandHandler);
             }
 
-            this.Logger.Log("CommandHandler " + commandHandler.Command + " (" + commandHandler.GetType().FullName + ") registered.");
+            Logger.Log("CommandHandler " + commandHandler.Command + " (" + commandHandler.GetType().FullName +
+                       ") registered.");
         }
 
         public bool HandleMessage(MessageSink messageSink, string message)
@@ -36,17 +38,17 @@ namespace ChatBot.Commands
                 return false;
             }
 
-            Command command = new Command(message);
+            var command = new Command(message);
 
             ICommandHandler commandHandler = null;
 
-            if (this.CommandHandlers.ContainsKey(command.Name))
+            if (CommandHandlers.ContainsKey(command.Name))
             {
-                commandHandler = this.CommandHandlers[command.Name];
+                commandHandler = CommandHandlers[command.Name];
             }
-            else if (this.CommandHandlers.ContainsKey(command.Name))
+            else if (CommandHandlers.ContainsKey(command.Name))
             {
-                commandHandler = this.LowercaseCommandHandlers[command.Name.ToLower()];
+                commandHandler = LowercaseCommandHandlers[command.Name.ToLower()];
             }
             else
             {

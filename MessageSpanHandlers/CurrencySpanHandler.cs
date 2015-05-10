@@ -1,27 +1,30 @@
-﻿using Eka.Web.Google;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using Eka.Web.Google;
 
 namespace ChatBot.MessageSpanHandlers
 {
     public class CurrencySpanHandler : IMessageSpanHandler
     {
-        private Regex CurrencyRegex1 = new Regex("([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)\\s*([0-9\\.]+)", RegexOptions.IgnoreCase);
-        private Regex CurrencyRegex2 = new Regex("([0-9\\.]+)\\s*([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)", RegexOptions.IgnoreCase);
-
-        private string[] Currencies = new string[]
+        private readonly string[] Currencies =
         {
             "EUR",
             "GBP",
             "USD"
         };
 
+        private readonly Regex CurrencyRegex1 = new Regex("([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)\\s*([0-9\\.]+)",
+            RegexOptions.IgnoreCase);
+
+        private readonly Regex CurrencyRegex2 = new Regex("([0-9\\.]+)\\s*([\\$€£]|GBP|EUR|USD|CAD|PLN|SEK|NOK|YEN)",
+            RegexOptions.IgnoreCase);
+
         public void IdentifyActionSpans(ActionSpanSink actionSpanSink, string message)
         {
-            foreach (Match match in this.CurrencyRegex1.Matches(message))
+            foreach (Match match in CurrencyRegex1.Matches(message))
             {
                 actionSpanSink(match, "1");
             }
-            foreach (Match match in this.CurrencyRegex2.Matches(message))
+            foreach (Match match in CurrencyRegex2.Matches(message))
             {
                 actionSpanSink(match, "2");
             }
@@ -30,7 +33,7 @@ namespace ChatBot.MessageSpanHandlers
         public void HandleSpan(MessageSink messageSink, MessageActionSpan actionSpan)
         {
             double amount = 0;
-            string sourceCurrency = "";
+            var sourceCurrency = "";
 
             if (actionSpan.Data == "1")
             {
@@ -43,17 +46,31 @@ namespace ChatBot.MessageSpanHandlers
                 amount = double.Parse(actionSpan.Match.Groups[1].ToString());
             }
 
-            if (sourceCurrency == "$") { sourceCurrency = "USD"; }
-            else if (sourceCurrency == "£") { sourceCurrency = "GBP"; }
-            else if (sourceCurrency == "€") { sourceCurrency = "EUR"; }
-
-            string message = amount.ToString("0.00") + " " + sourceCurrency.ToUpper();
-
-            foreach (string destinationCurrency in this.Currencies)
+            if (sourceCurrency == "$")
             {
-                if (sourceCurrency.ToLower() == destinationCurrency.ToLower()) { continue; }
+                sourceCurrency = "USD";
+            }
+            else if (sourceCurrency == "£")
+            {
+                sourceCurrency = "GBP";
+            }
+            else if (sourceCurrency == "€")
+            {
+                sourceCurrency = "EUR";
+            }
 
-                message += "\n        " + CurrencyConverter.Convert(amount, sourceCurrency, destinationCurrency).ToString("0.00") + " " + destinationCurrency;
+            var message = amount.ToString("0.00") + " " + sourceCurrency.ToUpper();
+
+            foreach (var destinationCurrency in Currencies)
+            {
+                if (sourceCurrency.ToLower() == destinationCurrency.ToLower())
+                {
+                    continue;
+                }
+
+                message += "\n        " +
+                           CurrencyConverter.Convert(amount, sourceCurrency, destinationCurrency).ToString("0.00") + " " +
+                           destinationCurrency;
             }
 
             messageSink(message);
