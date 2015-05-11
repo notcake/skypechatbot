@@ -138,8 +138,7 @@ namespace ChatBot
                 {
                     try
                     {
-                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent ||
-                            status == TChatMessageStatus.cmsSending)
+                        if (status == TChatMessageStatus.cmsReceived || status == TChatMessageStatus.cmsSent)
                         {
                             if (!this.ChatFilter.ChatPassesFilter(message.Chat))
                             {
