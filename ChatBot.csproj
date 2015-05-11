@@ -90,6 +90,7 @@
     <Compile Include="Commands\CommandDispatcher.cs" />
     <Compile Include="Commands\CommandParser.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MessageSpanHandlers\VineUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\CurrencySpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\GenericUrlSpanHandler.cs" />
     <Compile Include="MessageSpanHandlers\AmazonUrlSpanHandler.cs" />
